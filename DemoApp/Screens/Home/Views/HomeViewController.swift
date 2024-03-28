@@ -20,6 +20,7 @@ fileprivate typealias Snapshot = NSDiffableDataSourceSnapshot<Home.Section, Home
 
 class HomeViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
+    private let pagingInfoSubject = PassthroughSubject<PagingInfo, Never>()
 
     // TODO: remove force unwrapping
     private var dataSource: DataSource!
@@ -61,8 +62,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
     //MARK: - CollectionView Setup
     private func setupCollectionView() {
-        let layout = UICollectionViewLayout()
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
 
@@ -72,6 +72,24 @@ extension HomeViewController {
         collectionView.register(LiveChannelCell.self, forCellWithReuseIdentifier: LiveChannelCell.reuseId)
         collectionView.register(EpgCell.self, forCellWithReuseIdentifier: EpgCell.reuseId)
         collectionView.register(LoadingCell.self, forCellWithReuseIdentifier: LoadingCell.reuseId)
+
+        collectionView.register(
+            HomeSectionHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: HomeSectionHeaderView.reuseId
+        )
+
+        collectionView.register(
+            LockView.self,
+            forSupplementaryViewOfKind: LockView.reuseId,
+            withReuseIdentifier: LockView.reuseId
+        )
+
+        collectionView.register(
+            PagingSectionFooterView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: PagingSectionFooterView.reuseId
+        )
 
         setupCollectionViewHeader()
         setupCollectionViewConstraints()
@@ -96,9 +114,71 @@ extension HomeViewController {
         ])
     }
 
+    // MARK: - Layout
+    private func createLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout { [unowned self] (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            let section = dataSource.snapshot().sectionIdentifiers[sectionIndex]
+            return createSectionLayout(for: section)
+        }
+
+        return layout
+    }
+
+    private func createSectionLayout(for sectionType: Home.Section) -> NSCollectionLayoutSection {
+        let sectionParameters = HomeLayout.sectionParameters(for: sectionType)
+
+        var itemSupplementaries: [NSCollectionLayoutSupplementaryItem] {
+            guard sectionParameters.showLock else { return [] }
+            return [HomeLayout.createLockItem(for: sectionType)]
+        }
+
+        let item = NSCollectionLayoutItem(
+            layoutSize: sectionParameters.itemSize,
+            supplementaryItems: itemSupplementaries
+        )
+
+        item.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: Constants.itemLeadingInset,
+            bottom: 0,
+            trailing: 0
+        )
+
+        let group: NSCollectionLayoutGroup = .horizontal(
+            layoutSize: sectionParameters.groupSize,
+            subitem: item,
+            count: sectionParameters.columnCount
+        )
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = Constants.sectionContentInsets
+        section.orthogonalScrollingBehavior = sectionParameters.scrollBehavior
+
+        if sectionParameters.showSectionHeader {
+            let layoutSectionHeader = HomeLayout.createSectionHeader()
+            section.boundarySupplementaryItems += [layoutSectionHeader]
+        }
+
+        if sectionType == .promotions {
+            let footer = HomeLayout.createPageControlItem()
+            section.boundarySupplementaryItems += [footer]
+
+            section.interGroupSpacing = Constants.sectionContentInsets.leading + Constants.itemLeadingInset
+        }
+
+        section.visibleItemsInvalidationHandler = { [weak self] (items, offset, env) -> Void in
+            guard let self = self else { return }
+            let page = round(offset.x / (self.collectionView.bounds.width * 0.9))
+            pagingInfoSubject.send(PagingInfo(sectionIndex: sectionType.rawValue, currentPage: Int(page)))
+        }
+
+        return section
+    }
+
     // MARK: - DataSource
     private func configureDataSource() {
         setupCellProvider()
+        setupSupplementaryViewProvider()
     }
 
     // MARK: Cell
@@ -147,6 +227,74 @@ extension HomeViewController {
                 return cell
             }
         })
+    }
+
+    // MARK: Supplementary
+    private func setupSupplementaryViewProvider() {
+        dataSource.supplementaryViewProvider = { [weak self] (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
+            guard let self = self else { return nil }
+
+            switch kind {
+            case LockView.reuseId:
+                return self.createLockView(collectionView: collectionView, indexPath: indexPath)
+
+            case UICollectionView.elementKindSectionHeader:
+                return self.createSectionHeaderView(collectionView: collectionView, kind: kind, indexPath: indexPath)
+
+            default:
+                return self.createPagingFooterView(collectionView: collectionView, indexPath: indexPath)
+            }
+        }
+    }
+
+    private func createLockView(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionReusableView {
+        let item = viewModel.dataSource[indexPath.section].items[indexPath.row]
+        var isPurchased: Bool {
+            switch item {
+            case .movie(let asset), .liveChannel(let asset), .epg(let asset):
+                return asset.purchased
+            case .loading:
+                return true
+            default:
+                return false
+            }
+        }
+
+        let lockView = collectionView.dequeueReusableSupplementaryView(ofKind: LockView.reuseId, withReuseIdentifier: LockView.reuseId, for: indexPath) as! LockView
+        lockView.isHidden = isPurchased
+
+        return lockView
+    }
+
+    private func createSectionHeaderView(collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView {
+        guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: HomeSectionHeaderView.reuseId,
+                for: indexPath) as? HomeSectionHeaderView else {
+            fatalError("Cannot create header view")
+        }
+
+        let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
+        supplementaryView.update(with: section)
+        supplementaryView.deleteButtonPublisher
+            .sink { [weak self] output in
+                self?.viewModel.deleteSection(section)
+            }
+            .store(in: &supplementaryView.cancellables)
+        return supplementaryView
+    }
+
+    private func createPagingFooterView(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionReusableView {
+        let pagingFooter = collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: PagingSectionFooterView.reuseId,
+            for: indexPath) as! PagingSectionFooterView
+
+        let itemCount = dataSource.snapshot().numberOfItems(inSection: .promotions)
+        pagingFooter.configure(with: itemCount)
+        pagingFooter.subscribeTo(subject: pagingInfoSubject, for: indexPath.section)
+
+        return pagingFooter
     }
 }
 

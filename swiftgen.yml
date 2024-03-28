@@ -1,0 +1,16 @@
+input_dir: DemoApp/Resources
+output_dir: DemoApp/Resources/Generated
+xcassets:
+  - inputs: Assets.xcassets
+    outputs:
+      - templatePath: DemoApp/Resources/Generated/keyivstarTV-assets.stencil
+        output: Assets.swift
+  - inputs: Colors.xcassets
+    outputs:
+      - templatePath: DemoApp/Resources/Generated/keyivstarTV-colors.stencil
+        output: Colors.swift
+fonts:
+  inputs: Fonts
+  outputs:
+    templateName: swift5
+    output: Fonts.swift

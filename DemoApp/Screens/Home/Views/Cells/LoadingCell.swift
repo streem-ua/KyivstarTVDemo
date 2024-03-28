@@ -20,6 +20,11 @@ class LoadingCell: UICollectionViewCell, Reusable {
         setupGradientLayer()
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        gradientLayer.removeAllAnimations()
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.roundCorners(radius: 12)

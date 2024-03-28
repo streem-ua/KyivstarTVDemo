@@ -14,7 +14,6 @@ class LiveChannelCell: UICollectionViewCell, Reusable {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .lightGray
-        imageView.kf.indicatorType = .activity
         imageView.clipsToBounds = true
         return imageView
     }()

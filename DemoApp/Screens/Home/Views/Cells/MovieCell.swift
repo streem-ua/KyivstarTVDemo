@@ -41,7 +41,6 @@ class MovieCell: UICollectionViewCell, Reusable {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.kf.indicatorType = .activity
         return imageView
     }()
 

@@ -32,7 +32,6 @@ class CategoryCell: UICollectionViewCell, Reusable {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .lightGray
-        imageView.kf.indicatorType = .activity
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 16
         return imageView

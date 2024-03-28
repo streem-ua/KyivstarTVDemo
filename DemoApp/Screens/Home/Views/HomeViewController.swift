@@ -22,7 +22,6 @@ class HomeViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private let pagingInfoSubject = PassthroughSubject<PagingInfo, Never>()
 
-    // TODO: remove force unwrapping
     private var dataSource: DataSource!
     private var collectionView: UICollectionView!
 
@@ -169,7 +168,14 @@ extension HomeViewController {
         section.visibleItemsInvalidationHandler = { [weak self] (items, offset, env) -> Void in
             guard let self = self else { return }
             let page = round(offset.x / (self.collectionView.bounds.width * 0.9))
-            pagingInfoSubject.send(PagingInfo(sectionIndex: sectionType.rawValue, currentPage: Int(page)))
+            let totalPages = dataSource.snapshot().numberOfItems(inSection: .promotions)
+            pagingInfoSubject.send(
+                PagingInfo(
+                    sectionIndex: sectionType.rawValue,
+                    currentPage: Int(page),
+                    totalPages: totalPages
+                )
+            )
         }
 
         return section

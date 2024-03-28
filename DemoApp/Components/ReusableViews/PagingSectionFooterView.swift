@@ -11,6 +11,7 @@ import Combine
 struct PagingInfo: Equatable, Hashable {
     let sectionIndex: Int
     let currentPage: Int
+    let totalPages: Int
 }
 
 final class PagingSectionFooterView: UICollectionReusableView, Reusable {
@@ -53,6 +54,7 @@ final class PagingSectionFooterView: UICollectionReusableView, Reusable {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] pagingInfo in
                 self?.pageControl.currentPage = pagingInfo.currentPage
+                self?.pageControl.numberOfPages = pagingInfo.totalPages
             }
     }
 

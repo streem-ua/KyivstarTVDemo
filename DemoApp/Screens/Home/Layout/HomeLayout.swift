@@ -49,8 +49,8 @@ class HomeLayout {
 
     private static func liveChannelSectionParameters() -> HomeSectionLayoutParameters {
         return HomeSectionLayoutParameters(
-            itemSize: .init(widthDimension: .fractionalWidth(0.3), heightDimension: .fractionalWidth(0.3)),
-            groupSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.3)),
+            itemSize: .init(widthDimension: .fractionalWidth(0.31), heightDimension: .fractionalWidth(0.31)),
+            groupSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.31)),
             columnCount: 3,
             showLock: true
         )

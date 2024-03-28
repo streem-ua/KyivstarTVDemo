@@ -8,6 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		4FC8FBB0BCC9206935F6BE15 /* Pods_DemoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D77A0138EE54E258FA5B004B /* Pods_DemoApp.framework */; };
+		9A98A1032BB5B1730094F2E8 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A1022BB5B1730094F2E8 /* Colors.xcassets */; };
+		9A98A1102BB5B1E60094F2E8 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A1052BB5B1E60094F2E8 /* Roboto-Medium.ttf */; };
+		9A98A1112BB5B1E60094F2E8 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A1062BB5B1E60094F2E8 /* Roboto-Light.ttf */; };
+		9A98A1122BB5B1E60094F2E8 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A1072BB5B1E60094F2E8 /* Roboto-Regular.ttf */; };
+		9A98A1132BB5B1E60094F2E8 /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A1082BB5B1E60094F2E8 /* RobotoCondensed-Regular.ttf */; };
+		9A98A1142BB5B1E60094F2E8 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A1092BB5B1E60094F2E8 /* Roboto-Bold.ttf */; };
+		9A98A1152BB5B1E60094F2E8 /* SFPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A10B2BB5B1E60094F2E8 /* SFPro-Regular.ttf */; };
+		9A98A1162BB5B1E60094F2E8 /* SFPro-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A10C2BB5B1E60094F2E8 /* SFPro-Thin.ttf */; };
+		9A98A1172BB5B1E60094F2E8 /* SFPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A10D2BB5B1E60094F2E8 /* SFPro-Bold.ttf */; };
+		9A98A1182BB5B1E60094F2E8 /* SFPro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A10E2BB5B1E60094F2E8 /* SFPro-Light.ttf */; };
+		9A98A1192BB5B1E60094F2E8 /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A10F2BB5B1E60094F2E8 /* SFProDisplay-Semibold.ttf */; };
+		9A98A11C2BB5B1FD0094F2E8 /* keyivstarTV-assets.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A11A2BB5B1FD0094F2E8 /* keyivstarTV-assets.stencil */; };
+		9A98A11D2BB5B1FD0094F2E8 /* keyivstarTV-colors.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A11B2BB5B1FD0094F2E8 /* keyivstarTV-colors.stencil */; };
+		9A98A1222BB5B2780094F2E8 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A98A11F2BB5B2780094F2E8 /* Assets.swift */; };
+		9A98A1232BB5B2780094F2E8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A98A1202BB5B2780094F2E8 /* Colors.swift */; };
+		9A98A1242BB5B2780094F2E8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A98A1212BB5B2780094F2E8 /* Fonts.swift */; };
+		9A98A12A2BB5B2D70094F2E8 /* getContentGroups.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A1262BB5B2D70094F2E8 /* getContentGroups.json */; };
+		9A98A12B2BB5B2D70094F2E8 /* getAssetDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A1272BB5B2D70094F2E8 /* getAssetDetails.json */; };
+		9A98A12C2BB5B2D70094F2E8 /* getPromotions.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A1282BB5B2D70094F2E8 /* getPromotions.json */; };
+		9A98A12D2BB5B2D70094F2E8 /* getCategories.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A98A1292BB5B2D70094F2E8 /* getCategories.json */; };
+		9A98A12F2BB5B2E20094F2E8 /* ModelLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A98A12E2BB5B2E20094F2E8 /* ModelLoad.swift */; };
 		AB5E7741261461B7004AA3B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E7740261461B7004AA3B2 /* AppDelegate.swift */; };
 		AB5E7743261461B7004AA3B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E7742261461B7004AA3B2 /* SceneDelegate.swift */; };
 		AB5E7745261461B7004AA3B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E7744261461B7004AA3B2 /* ViewController.swift */; };
@@ -17,6 +38,27 @@
 
 /* Begin PBXFileReference section */
 		2639E82B28903CA1E0DA7AEF /* Pods-DemoApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoApp.release.xcconfig"; path = "Target Support Files/Pods-DemoApp/Pods-DemoApp.release.xcconfig"; sourceTree = "<group>"; };
+		9A98A1022BB5B1730094F2E8 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		9A98A1052BB5B1E60094F2E8 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		9A98A1062BB5B1E60094F2E8 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		9A98A1072BB5B1E60094F2E8 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		9A98A1082BB5B1E60094F2E8 /* RobotoCondensed-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Regular.ttf"; sourceTree = "<group>"; };
+		9A98A1092BB5B1E60094F2E8 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		9A98A10B2BB5B1E60094F2E8 /* SFPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFPro-Regular.ttf"; sourceTree = "<group>"; };
+		9A98A10C2BB5B1E60094F2E8 /* SFPro-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFPro-Thin.ttf"; sourceTree = "<group>"; };
+		9A98A10D2BB5B1E60094F2E8 /* SFPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFPro-Bold.ttf"; sourceTree = "<group>"; };
+		9A98A10E2BB5B1E60094F2E8 /* SFPro-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFPro-Light.ttf"; sourceTree = "<group>"; };
+		9A98A10F2BB5B1E60094F2E8 /* SFProDisplay-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Semibold.ttf"; sourceTree = "<group>"; };
+		9A98A11A2BB5B1FD0094F2E8 /* keyivstarTV-assets.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "keyivstarTV-assets.stencil"; sourceTree = "<group>"; };
+		9A98A11B2BB5B1FD0094F2E8 /* keyivstarTV-colors.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "keyivstarTV-colors.stencil"; sourceTree = "<group>"; };
+		9A98A11F2BB5B2780094F2E8 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		9A98A1202BB5B2780094F2E8 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		9A98A1212BB5B2780094F2E8 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		9A98A1262BB5B2D70094F2E8 /* getContentGroups.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getContentGroups.json; sourceTree = "<group>"; };
+		9A98A1272BB5B2D70094F2E8 /* getAssetDetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getAssetDetails.json; sourceTree = "<group>"; };
+		9A98A1282BB5B2D70094F2E8 /* getPromotions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getPromotions.json; sourceTree = "<group>"; };
+		9A98A1292BB5B2D70094F2E8 /* getCategories.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getCategories.json; sourceTree = "<group>"; };
+		9A98A12E2BB5B2E20094F2E8 /* ModelLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelLoad.swift; sourceTree = "<group>"; };
 		A424CE03F6B252BE6999666C /* Pods-DemoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoApp.debug.xcconfig"; path = "Target Support Files/Pods-DemoApp/Pods-DemoApp.debug.xcconfig"; sourceTree = "<group>"; };
 		AB5E773D261461B7004AA3B2 /* DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB5E7740261461B7004AA3B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +99,74 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		9A98A0FF2BB5B1380094F2E8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9A98A1002BB5B1470094F2E8 /* Fonts */,
+				9A98A1012BB5B14D0094F2E8 /* Generated */,
+				AB5E7749261461B9004AA3B2 /* Assets.xcassets */,
+				9A98A1022BB5B1730094F2E8 /* Colors.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9A98A1002BB5B1470094F2E8 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9A98A1042BB5B1E60094F2E8 /* Roboto */,
+				9A98A10A2BB5B1E60094F2E8 /* SFPro */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		9A98A1012BB5B14D0094F2E8 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				9A98A11A2BB5B1FD0094F2E8 /* keyivstarTV-assets.stencil */,
+				9A98A11B2BB5B1FD0094F2E8 /* keyivstarTV-colors.stencil */,
+				9A98A11F2BB5B2780094F2E8 /* Assets.swift */,
+				9A98A1202BB5B2780094F2E8 /* Colors.swift */,
+				9A98A1212BB5B2780094F2E8 /* Fonts.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		9A98A1042BB5B1E60094F2E8 /* Roboto */ = {
+			isa = PBXGroup;
+			children = (
+				9A98A1052BB5B1E60094F2E8 /* Roboto-Medium.ttf */,
+				9A98A1062BB5B1E60094F2E8 /* Roboto-Light.ttf */,
+				9A98A1072BB5B1E60094F2E8 /* Roboto-Regular.ttf */,
+				9A98A1082BB5B1E60094F2E8 /* RobotoCondensed-Regular.ttf */,
+				9A98A1092BB5B1E60094F2E8 /* Roboto-Bold.ttf */,
+			);
+			path = Roboto;
+			sourceTree = "<group>";
+		};
+		9A98A10A2BB5B1E60094F2E8 /* SFPro */ = {
+			isa = PBXGroup;
+			children = (
+				9A98A10B2BB5B1E60094F2E8 /* SFPro-Regular.ttf */,
+				9A98A10C2BB5B1E60094F2E8 /* SFPro-Thin.ttf */,
+				9A98A10D2BB5B1E60094F2E8 /* SFPro-Bold.ttf */,
+				9A98A10E2BB5B1E60094F2E8 /* SFPro-Light.ttf */,
+				9A98A10F2BB5B1E60094F2E8 /* SFProDisplay-Semibold.ttf */,
+			);
+			path = SFPro;
+			sourceTree = "<group>";
+		};
+		9A98A1252BB5B2C70094F2E8 /* MockModels */ = {
+			isa = PBXGroup;
+			children = (
+				9A98A1272BB5B2D70094F2E8 /* getAssetDetails.json */,
+				9A98A1292BB5B2D70094F2E8 /* getCategories.json */,
+				9A98A1262BB5B2D70094F2E8 /* getContentGroups.json */,
+				9A98A1282BB5B2D70094F2E8 /* getPromotions.json */,
+				9A98A12E2BB5B2E20094F2E8 /* ModelLoad.swift */,
+			);
+			path = MockModels;
+			sourceTree = "<group>";
+		};
 		AB5E7734261461B7004AA3B2 = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +188,7 @@
 		AB5E773F261461B7004AA3B2 /* DemoApp */ = {
 			isa = PBXGroup;
 			children = (
+				9A98A0FF2BB5B1380094F2E8 /* Resources */,
 				AB5E7744261461B7004AA3B2 /* ViewController.swift */,
 				AB5E775626146274004AA3B2 /* SupportingFiles */,
 			);
@@ -87,9 +198,9 @@
 		AB5E775626146274004AA3B2 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				9A98A1252BB5B2C70094F2E8 /* MockModels */,
 				AB5E7740261461B7004AA3B2 /* AppDelegate.swift */,
 				AB5E7742261461B7004AA3B2 /* SceneDelegate.swift */,
-				AB5E7749261461B9004AA3B2 /* Assets.xcassets */,
 				AB5E774B261461B9004AA3B2 /* LaunchScreen.storyboard */,
 				AB5E774E261461B9004AA3B2 /* Info.plist */,
 			);
@@ -104,6 +215,7 @@
 			buildConfigurationList = AB5E7751261461B9004AA3B2 /* Build configuration list for PBXNativeTarget "DemoApp" */;
 			buildPhases = (
 				FBFF8C107C5E4B1B44864E27 /* [CP] Check Pods Manifest.lock */,
+				9A98A11E2BB5B2100094F2E8 /* Swiftgen */,
 				AB5E7739261461B7004AA3B2 /* Sources */,
 				AB5E773A261461B7004AA3B2 /* Frameworks */,
 				AB5E773B261461B7004AA3B2 /* Resources */,
@@ -155,8 +267,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A98A12B2BB5B2D70094F2E8 /* getAssetDetails.json in Resources */,
+				9A98A1122BB5B1E60094F2E8 /* Roboto-Regular.ttf in Resources */,
+				9A98A12D2BB5B2D70094F2E8 /* getCategories.json in Resources */,
+				9A98A1102BB5B1E60094F2E8 /* Roboto-Medium.ttf in Resources */,
+				9A98A1132BB5B1E60094F2E8 /* RobotoCondensed-Regular.ttf in Resources */,
+				9A98A1192BB5B1E60094F2E8 /* SFProDisplay-Semibold.ttf in Resources */,
+				9A98A11C2BB5B1FD0094F2E8 /* keyivstarTV-assets.stencil in Resources */,
+				9A98A1032BB5B1730094F2E8 /* Colors.xcassets in Resources */,
+				9A98A1112BB5B1E60094F2E8 /* Roboto-Light.ttf in Resources */,
 				AB5E774D261461B9004AA3B2 /* LaunchScreen.storyboard in Resources */,
+				9A98A12A2BB5B2D70094F2E8 /* getContentGroups.json in Resources */,
+				9A98A1182BB5B1E60094F2E8 /* SFPro-Light.ttf in Resources */,
+				9A98A1162BB5B1E60094F2E8 /* SFPro-Thin.ttf in Resources */,
+				9A98A1172BB5B1E60094F2E8 /* SFPro-Bold.ttf in Resources */,
+				9A98A1142BB5B1E60094F2E8 /* Roboto-Bold.ttf in Resources */,
+				9A98A1152BB5B1E60094F2E8 /* SFPro-Regular.ttf in Resources */,
 				AB5E774A261461B9004AA3B2 /* Assets.xcassets in Resources */,
+				9A98A12C2BB5B2D70094F2E8 /* getPromotions.json in Resources */,
+				9A98A11D2BB5B1FD0094F2E8 /* keyivstarTV-colors.stencil in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +308,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DemoApp/Pods-DemoApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		9A98A11E2BB5B2100094F2E8 /* Swiftgen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftgen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftGen/bin/swiftgen\"\n";
 		};
 		FBFF8C107C5E4B1B44864E27 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -210,8 +357,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB5E7745261461B7004AA3B2 /* ViewController.swift in Sources */,
+				9A98A1232BB5B2780094F2E8 /* Colors.swift in Sources */,
 				AB5E7741261461B7004AA3B2 /* AppDelegate.swift in Sources */,
+				9A98A1222BB5B2780094F2E8 /* Assets.swift in Sources */,
+				9A98A1242BB5B2780094F2E8 /* Fonts.swift in Sources */,
 				AB5E7743261461B7004AA3B2 /* SceneDelegate.swift in Sources */,
+				9A98A12F2BB5B2E20094F2E8 /* ModelLoad.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,7 +509,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.vidmind.DemoApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.idkek.DemoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -378,7 +529,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.vidmind.DemoApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.idkek.DemoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

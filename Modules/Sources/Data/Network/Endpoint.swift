@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol Endpoint {
+public protocol Endpoint {
     var path: String { get }
     var method: ApiMethod { get }
 }
 
-enum ApiMethod: String {
+public enum ApiMethod: String {
     case post = "POST"
     case get = "GET"
     case patch = "PATCH"

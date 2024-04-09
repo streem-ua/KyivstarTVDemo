@@ -15,8 +15,12 @@ let package = Package(
             name: "Data",
             targets: ["Data"]),
         .library(
+            name: "Domain",
+            targets: ["Domain"]),
+        .library(
             name: "Core",
             targets: ["Core"])
+        
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -25,6 +29,9 @@ let package = Package(
             name: "Modules"),
         .target(
             name: "Core"),
+        .target(
+            name: "Domain",
+            dependencies: ["Data"]),
         .target(
             name: "Data",
             dependencies: ["Core"]),

@@ -7,14 +7,14 @@
 
 import Foundation
 
-enum TemplatesEndpoint: Endpoint {
+public enum TemplatesEndpoint: Endpoint {
     
     case getContentGroups
     case getPromotions
     case getCategories
     case getAssetDetails
     
-    var path: String {
+    public var path: String {
         switch self {
         case .getContentGroups:
             "/templates/PGgg02gplft-/data"
@@ -27,7 +27,7 @@ enum TemplatesEndpoint: Endpoint {
         }
     }
     
-    var method: ApiMethod {
+    public var method: ApiMethod {
         return .get
     }
 }

@@ -8,11 +8,11 @@
 import Foundation
 import Core
 
-protocol NetworkService {
+public protocol NetworkService: Any {
     func load<T: Decodable>(_ request: RequestWithResponse<T>) async throws -> T
 }
 
-final class NetworkServiceImpl {
+public final class NetworkServiceImpl: NetworkService {
     
     // MARK: - Properties
     private let logger = AppLogger.networkService
@@ -22,7 +22,7 @@ final class NetworkServiceImpl {
         self.authentication = authentication
     }
     
-    func load<T: Decodable>(_ request: RequestWithResponse<T>) async throws -> T {
+    public func load<T: Decodable>(_ request: RequestWithResponse<T>) async throws -> T {
         let urlRequest = try await generateURLRequest(from: request)
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         guard let httpResponse = response as? HTTPURLResponse,
@@ -77,7 +77,7 @@ final class NetworkServiceImpl {
     }
     
     private func generateURL(endpoint: Endpoint) -> URL {
-//        var url = API.baseURL
+        //        var url = API.baseURL
         var url = URL(string: "")!
         url.appendPathComponent(endpoint.path)
         return url

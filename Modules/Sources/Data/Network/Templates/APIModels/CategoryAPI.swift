@@ -7,8 +7,13 @@
 
 import Foundation
 
+// MARK: - CategoriesAPI
+public struct CategoriesAPI: Codable {
+    public let categories: [CategoryAPI]
+}
+
 // MARK: - CategoryAPI
-struct CategoryAPI: Codable {
-    let id, name: String
-    let image: String
+public struct CategoryAPI: Codable {
+    public let id, name: String
+    public let image: String
 }

@@ -8,23 +8,23 @@
 import Foundation
 
 // MARK: - AssetDetailsAPI
-struct AssetDetailsAPI: Codable {
-    let id, name: String
-    let image: String
-    let company: String
-    let similar: [SimilarAssetAPI]
-    let duration, progress: Int
-    let purchased: Bool
-    let updatedAt, description, releaseDate: String
+public struct AssetDetailsAPI: Codable {
+    public let id, name: String
+    public let image: String
+    public let company: String
+    public let similar: [SimilarAssetAPI]
+    public let duration, progress: Int
+    public let purchased: Bool
+    public let updatedAt, description, releaseDate: String
 }
 
 // MARK: - SimilarAssetAPI
-struct SimilarAssetAPI: Codable {
-    let id, name: String
-    let image: String
-    let company: String
-    let progress: Int
-    let purchased: Bool
-    let updatedAt, releaseDate: String
+public struct SimilarAssetAPI: Codable {
+    public let id, name: String
+    public let image: String
+    public let company: String
+    public let progress: Int
+    public let purchased: Bool
+    public let updatedAt, releaseDate: String
 }
 

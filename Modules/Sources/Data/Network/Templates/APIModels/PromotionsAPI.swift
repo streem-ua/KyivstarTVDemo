@@ -8,14 +8,14 @@
 import Foundation
 
 // MARK: - PromotionsAPI
-struct PromotionsAPI: Codable {
-    let id, name: String
-    let promotions: [PromotionAPI]
+public struct PromotionsAPI: Codable {
+    public let id, name: String
+    public let promotions: [PromotionAPI]
 }
 
 // MARK: - Promotion
-struct PromotionAPI: Codable {
-    let id, name: String
-    let image: String
-    let company, updatedAt, releaseDate: String
+public struct PromotionAPI: Codable {
+    public let id, name: String
+    public let image: String
+    public let company, updatedAt, releaseDate: String
 }

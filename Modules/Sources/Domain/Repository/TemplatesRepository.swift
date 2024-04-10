@@ -8,7 +8,7 @@
 import Foundation
 import Data
 
-public protocol TemplatesRepository {
+public protocol TemplatesRepository: AnyObject {
     func fetchContentGroups() async throws -> [ContentGroupsDomain]
     func fetchPromotions() async throws -> PromotionsDomain
     func fetchCategories() async throws -> CategoriesDomain
@@ -19,7 +19,7 @@ public final class TemplatesRepositoryImpl: TemplatesRepository {
     
     private let networkService: NetworkService
     
-    init(networkService: NetworkService) {
+    public init(networkService: NetworkService) {
         self.networkService = networkService
     }
     

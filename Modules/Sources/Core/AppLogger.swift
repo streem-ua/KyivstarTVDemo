@@ -14,6 +14,9 @@ extension Logger {
 
     enum LogCategory: String {
         case networkService
+        case coordinator
+        case sceneDelegate
+        case diContainer
        
         func callAsFunction() -> String {
             self.rawValue
@@ -28,6 +31,9 @@ extension Logger {
     }
 
     public static let networkService = Logger.with(category: .networkService)
+    public static let coordinator = Logger.with(category: .coordinator)
+    public static let sceneDelegate = Logger.with(category: .sceneDelegate)
+    public static let diContainer = Logger.with(category: .diContainer)
 }
 
 extension Logger {

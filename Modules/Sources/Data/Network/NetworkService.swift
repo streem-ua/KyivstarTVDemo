@@ -18,7 +18,7 @@ public final class NetworkServiceImpl: NetworkService {
     private let logger = AppLogger.networkService
     private var authentication: Authentication
     
-    init(authentication: Authentication) {
+    public init(authentication: Authentication) {
         self.authentication = authentication
     }
     

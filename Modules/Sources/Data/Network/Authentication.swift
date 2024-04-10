@@ -7,10 +7,10 @@
 
 import Foundation
 
-actor Authentication {
+public actor Authentication {
     var barier: String
     
-    init(barier: String) {
+    public init(barier: String) {
         self.barier = barier
     }
 }

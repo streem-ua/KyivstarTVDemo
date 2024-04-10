@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Presentation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    // MARK: Properties
     var window: UIWindow?
+    var appCoordinator: AppCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -20,9 +23,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+       
         window?.windowScene = windowScene
-        window?.rootViewController = ViewController()
-        window?.makeKeyAndVisible()
+        guard let window else {
+            fatalError("Could not create window scene")
+        }
+        let appCoordinator = AppCoordinator(window: window)
+        appCoordinator.start()
+//        window?.rootViewController = ViewController()
+//        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

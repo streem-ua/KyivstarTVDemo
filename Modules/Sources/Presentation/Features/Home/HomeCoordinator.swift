@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Domain
 
 final class HomeCoordinator: BaseCoordinator {
     
@@ -20,7 +21,9 @@ final class HomeCoordinator: BaseCoordinator {
     }
     
     override func start() {
-        let viewController = HomeViewController(viewModel: HomeViewModel())
+        let templatesRepository = diContainer.resolve(type: TemplatesRepository.self)
+        let viewModel = HomeViewModel(templatesRepository: templatesRepository)
+        let viewController = HomeViewController(viewModel: viewModel)
         window.rootViewController = UINavigationController(rootViewController: viewController)
         window.makeKeyAndVisible()
     }

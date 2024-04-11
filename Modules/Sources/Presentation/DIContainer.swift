@@ -45,7 +45,7 @@ final class DIContainerImpl: DIContainer {
             register(type: type)
         }
         guard let dependency = dependencies[typeKey] as? Dependency else {
-            fatalError("Could not resolve dependency")
+            fatalError("Could not resolve dependency \(typeKey)")
         }
         logger.info("Dependency \(type) resolved")
         return dependency
@@ -53,12 +53,8 @@ final class DIContainerImpl: DIContainer {
 
     // MARK: - Private methods
     private func register<Dependency>(type: Dependency.Type) {
-        switch Dependency.self {
-        case is TemplatesRepository.Type:
-                dependencies["\(type)"] = templateRepository
-        default:
-            logger.info("Unexpected dependency type")
-            return
+        if type == TemplatesRepository.self {
+            dependencies["\(type)"] = templateRepository
         }
     }
     

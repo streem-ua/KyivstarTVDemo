@@ -78,7 +78,7 @@ public final class NetworkServiceImpl: NetworkService {
     
     private func generateURL(endpoint: Endpoint) -> URL {
         //        var url = API.baseURL
-        var url = URL(string: "")!
+        var url = URL(string: "https://stackoverflow.com/questions/24022479/how-would-i-create-a-uialertview-in-swift")!
         url.appendPathComponent(endpoint.path)
         return url
     }

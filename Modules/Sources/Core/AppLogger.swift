@@ -17,6 +17,7 @@ extension Logger {
         case coordinator
         case sceneDelegate
         case diContainer
+        case homeFeature
        
         func callAsFunction() -> String {
             self.rawValue
@@ -34,6 +35,7 @@ extension Logger {
     public static let coordinator = Logger.with(category: .coordinator)
     public static let sceneDelegate = Logger.with(category: .sceneDelegate)
     public static let diContainer = Logger.with(category: .diContainer)
+    public static let homeFeature = Logger.with(category: .homeFeature)
 }
 
 extension Logger {

@@ -1,5 +1,5 @@
 //
-//  ContentGroupsDomain.swift
+//  ContentGroups.swift
 //
 //
 //  Created by Vadim Marchenko on 09.04.2024.
@@ -8,21 +8,30 @@
 import Foundation
 import Data
 
-// MARK: - ContentGroupsDomain
-public struct ContentGroupsDomain {
+public enum ContentType: String {
+    case movie = "MOVIE"
+    case series = "SERIES"
+    case liveChannel = "LIVECHANNEL"
+    case epg = "EPG"
+    case unknown
+}
+
+// MARK: - ContentGroups
+public struct ContentGroups {
     public let id, name: String
-    public let type: [String]
-    public let assets: [AssetDomain]
+    public let type: [ContentType]
+    public let assets: [Asset]
     public let hidden: Bool
     public let sortIndex: Int
     public let canBeDeleted: Bool
 }
 
 extension ContentGroupsAPI {
-    func mapToDoamin() -> ContentGroupsDomain {
-        return ContentGroupsDomain(id: id,
+    func mapToDoamin() -> ContentGroups {
+        let typeDomain = type.map { ContentType(rawValue: $0) ?? .unknown }
+        return ContentGroups(id: id,
                                    name: name,
-                                   type: type,
+                                   type: typeDomain,
                                    assets: assets.map { $0.mapToDoamin() },
                                    hidden: hidden,
                                    sortIndex: sortIndex,
@@ -30,8 +39,8 @@ extension ContentGroupsAPI {
     }
 }
 
-// MARK: - AssetDomain
-public struct AssetDomain: Codable {
+// MARK: - Asset
+public struct Asset: Hashable {
     public let id, name: String
     public let image: String
     public let company: String
@@ -43,8 +52,8 @@ public struct AssetDomain: Codable {
 
 extension AssetAPI {
     
-    func mapToDoamin() -> AssetDomain {
-        return AssetDomain(id: id,
+    func mapToDoamin() -> Asset {
+        return Asset(id: id,
                            name: name,
                            image: image,
                            company: company,

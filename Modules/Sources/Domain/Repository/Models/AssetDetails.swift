@@ -1,5 +1,5 @@
 //
-//  AssetDetailsDomain.swift
+//  AssetDetails.swift
 //
 //
 //  Created by Vadim Marchenko on 09.04.2024.
@@ -8,12 +8,12 @@
 import Foundation
 import Data
 
-// MARK: - AssetDetailsDomain
-public struct AssetDetailsDomain {
+// MARK: - AssetDetails
+public struct AssetDetails: Hashable {
     let id, name: String
     let image: String
     let company: String
-    let similar: [SimilarAssetDomain]
+    let similar: [SimilarAsset]
     let duration, progress: Int
     let purchased: Bool
     let updatedAt, description, releaseDate: String
@@ -21,8 +21,8 @@ public struct AssetDetailsDomain {
 
 extension AssetDetailsAPI {
     
-    func mapToDoamin() -> AssetDetailsDomain {
-        return AssetDetailsDomain(id: id,
+    func mapToDoamin() -> AssetDetails {
+        return AssetDetails(id: id,
                                   name: name,
                                   image: image,
                                   company: company,
@@ -36,8 +36,8 @@ extension AssetDetailsAPI {
     }
 }
 
-// MARK: - AssetDetailsDomain
-struct SimilarAssetDomain: Codable {
+// MARK: - AssetDetails
+struct SimilarAsset: Hashable {
     let id, name: String
     let image: String
     let company: String
@@ -47,8 +47,8 @@ struct SimilarAssetDomain: Codable {
 }
 
 extension SimilarAssetAPI {
-    func mapToDoamin() -> SimilarAssetDomain {
-        return SimilarAssetDomain(id: id,
+    func mapToDoamin() -> SimilarAsset {
+        return SimilarAsset(id: id,
                                   name: name,
                                   image: image,
                                   company: company,

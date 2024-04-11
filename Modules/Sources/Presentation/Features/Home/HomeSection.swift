@@ -19,11 +19,11 @@ enum Home {
         case epg
     }
     
-//    enum Item: Hashable {
-//        case promotion(PromotionDomain)
-//        case category(CategoryDomain)
-//        case movie(AssetDomain)
-//        case liveChannel(AssetDomain)
-//        case epg(AssetDomain)
-//    }
+    enum Item: Hashable {
+        case promotion(Promotion)
+        case category(Category)
+        case movie(Asset)
+        case liveChannel(Asset)
+        case epg(Asset)
+    }
 }

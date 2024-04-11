@@ -10,7 +10,6 @@ import Foundation
 // MARK: - Request
 protocol Request {
     var endpoint: Endpoint { get }
-    var parameters: [URLQueryItem]? { get }
     var repeatCount: Int { get }
     var attempt: Int { get }
 
@@ -19,13 +18,11 @@ protocol Request {
 
 public struct RequestWithResponse<T: Decodable>: Request {
     public let endpoint: Endpoint
-    public let parameters: [URLQueryItem]?
     public let repeatCount: Int
     private(set) var attempt: Int
 
-    public init(endpoint: Endpoint, query: [URLQueryItem]? = nil, repeatCount: Int = 3) {
+    public init(endpoint: Endpoint, repeatCount: Int = 3) {
         self.endpoint = endpoint
-        self.parameters = query
         self.repeatCount = 3
         self.attempt = 0
     }

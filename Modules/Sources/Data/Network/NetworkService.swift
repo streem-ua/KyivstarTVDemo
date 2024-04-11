@@ -37,7 +37,7 @@ public final class NetworkServiceImpl: NetworkService {
                 logger.info("Success \(request.endpoint.path): \(responseString)")
                 return decodedObject
             } catch let error {
-                logger.error("\(error)")
+                logger.error("\((request.endpoint.path)): \(error)")
                 throw NetworkError.jsonDecodingError(error: error)
             }
         case .unauthorized:
@@ -63,13 +63,6 @@ public final class NetworkServiceImpl: NetworkService {
     
     private func generateURLRequest(from request: Request) async throws -> URLRequest {
         let url = generateURL(endpoint: request.endpoint)
-        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-            throw NetworkError.invalidRequest
-        }
-        components.queryItems = request.parameters ?? []
-        guard let url = components.url else {
-            throw NetworkError.invalidRequest
-        }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.endpoint.method.rawValue
         urlRequest = await addHeader(for: urlRequest)
@@ -77,8 +70,7 @@ public final class NetworkServiceImpl: NetworkService {
     }
     
     private func generateURL(endpoint: Endpoint) -> URL {
-        //        var url = API.baseURL
-        var url = URL(string: "https://stackoverflow.com/questions/24022479/how-would-i-create-a-uialertview-in-swift")!
+        var url = API.baseURL
         url.appendPathComponent(endpoint.path)
         return url
     }

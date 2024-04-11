@@ -69,7 +69,7 @@ final class HomeViewController: UIViewController, Viewable {
                                       message: "error-alert-text".localized,
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "error-alert-action".localized, 
-                                      style: .default, 
+                                      style: .default,
                                       handler: { [weak self] _ in
             self?.fetchData()
         }))

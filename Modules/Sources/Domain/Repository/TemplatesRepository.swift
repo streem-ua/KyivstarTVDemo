@@ -12,7 +12,7 @@ public protocol TemplatesRepository: AnyObject {
     func fetchContentGroups() async throws -> [ContentGroupsDomain]
     func fetchPromotions() async throws -> PromotionsDomain
     func fetchCategories() async throws -> CategoriesDomain
-    func fetchAssetDetails() async throws -> AssetDomain
+    func fetchAssetDetails() async throws -> AssetDetailsDomain
 }
 
 public final class TemplatesRepositoryImpl: TemplatesRepository {
@@ -41,8 +41,8 @@ public final class TemplatesRepositoryImpl: TemplatesRepository {
         return result.mapToDoamin()
     }
     
-    public func fetchAssetDetails() async throws -> AssetDomain {
-        let request = RequestWithResponse<AssetAPI>(endpoint: TemplatesEndpoint.getContentGroups)
+    public func fetchAssetDetails() async throws -> AssetDetailsDomain {
+        let request = RequestWithResponse<AssetDetailsAPI>(endpoint: TemplatesEndpoint.getAssetDetails)
         let result = try await networkService.load(request)
         return result.mapToDoamin()
     }

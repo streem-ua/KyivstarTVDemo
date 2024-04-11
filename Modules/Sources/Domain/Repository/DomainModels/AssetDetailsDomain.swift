@@ -9,7 +9,7 @@ import Foundation
 import Data
 
 // MARK: - AssetDetailsDomain
-struct AssetDetailsDomain {
+public struct AssetDetailsDomain {
     let id, name: String
     let image: String
     let company: String

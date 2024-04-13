@@ -10,4 +10,5 @@ import UIKit
 
 enum ImageAssets {
     static let logo = UIImage(named: "logo")
+    static let lock = UIImage(named: "lock")
 }

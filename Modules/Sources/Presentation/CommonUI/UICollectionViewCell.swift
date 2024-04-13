@@ -12,14 +12,14 @@ open class CollectionViewCell: UICollectionViewCell {
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        makeUI()
+        setupConstraints()
     }
 
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func makeUI() {
+    func setupConstraints() {
 
     }
 }

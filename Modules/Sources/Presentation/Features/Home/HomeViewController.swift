@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-fileprivate typealias DataSource = UICollectionViewDiffableDataSource<Home.Section, Home.Item>
-fileprivate typealias Snapshot = NSDiffableDataSourceSnapshot<Home.Section, Home.Item>
+typealias DataSource = UICollectionViewDiffableDataSource<Home.Section, Home.Item>
+typealias Snapshot = NSDiffableDataSourceSnapshot<Home.Section, Home.Item>
 
 final class HomeViewController: UIViewController, Viewable {
     
@@ -33,23 +33,15 @@ final class HomeViewController: UIViewController, Viewable {
         return activityIndicatorView
     }()
     
-    private var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        return collectionView
-    }()
-    
-    private lazy var dataSource = makeDataSource()
-    
-    //    private var layout: UICollectionViewLayout = {
-    //        var layour = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
-    //
-    //        }
-    //    }()
-    
+     private var collectionView: UICollectionView!
+     private var dataSource: DataSource!
+     private let lauotySectionFactory = HomeLayoutSectionFactory()
+        
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setupUI()
         
         viewModel.$dataSource
             .removeDuplicates()
@@ -60,20 +52,24 @@ final class HomeViewController: UIViewController, Viewable {
                     snapshot.appendSections([sectionModel.section])
                     snapshot.appendItems(sectionModel.items, toSection: sectionModel.section)
                 }
-
-                self?.dataSource.apply(snapshot)
+                
+                self?.dataSource?.apply(snapshot)
             }
             .store(in: &viewModel.cancellables)
-
-        
+    
         fetchData()
-        setupConstraints()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+        
     // MARK: - Private methods
     private func fetchData() {
         activityIndicatorView.startAnimating()
-        Task {
+        collectionView.backgroundColor = .clear
+        Task(priority: .high) {
             do {
                 try await viewModel.fetchData()
             } catch let error {
@@ -81,6 +77,7 @@ final class HomeViewController: UIViewController, Viewable {
                 showErrorAlert()
             }
             activityIndicatorView.stopAnimating()
+            collectionView.backgroundColor = .white
         }
     }
     
@@ -97,32 +94,90 @@ final class HomeViewController: UIViewController, Viewable {
         present(alert, animated: true)
     }
     
-    private func makeDataSource() -> DataSource {
-        let dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, item in
+    // MARK: - Setup UI
+    private func setupUI() {
+        view.backgroundColor = .white
+        setupCollectionView()
+        setupHeader()
+        setupDataSource()
+        setupConstraints()
+        registerCells()
+    }
+    
+    private func setupCollectionView() {
+         let layout = UICollectionViewCompositionalLayout { [unowned self] sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
+            
+             let section = dataSource.snapshot().sectionIdentifiers[sectionIndex]
+             return self.lauotySectionFactory.build(for: section)
+         }
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.showsVerticalScrollIndicator = false
+     }
+    
+    private func setupDataSource() {
+        dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, item in
             switch item {
-            case .category(let categories):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionCell.className, for: indexPath) as! CategoryCollectionCell
+            case .category(let category):
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCategoryCollectionCell.className, for: indexPath) as! HomeCategoryCollectionCell
+                cell.configure(imageString: category.image, title: category.name)
                 return cell
             case .epg(let epg):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EpgCollectionCell.className, for: indexPath) as! EpgCollectionCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeEpgCollectionCell.className, for: indexPath) as! HomeEpgCollectionCell
+                cell.configure(asset: epg)
                 return cell
             case .liveChannel(let liveChannel):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LiveChannelCollectionCell.className, for: indexPath) as! LiveChannelCollectionCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeLiveChannelCollectionCell.className, for: indexPath) as! HomeLiveChannelCollectionCell
+                cell.configure(asset: liveChannel)
                 return cell
             case .promotion(let promotion):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PromotionCollectionCell.className, for: indexPath) as! PromotionCollectionCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomePromotionCollectionCell.className, for: indexPath) as! HomePromotionCollectionCell
+                cell.configure(imageString: promotion.image)
                 return cell
             case .movie(let movie):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionCell.className, for: indexPath) as! MovieCollectionCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeMovieCollectionCell.className, for: indexPath) as! HomeMovieCollectionCell
+                cell.configure(asset: movie)
                 return cell
             }
         }
-        return dataSource
+        
+        dataSource.supplementaryViewProvider = { [unowned self] collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader else {
+                return nil
+            }
+            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                         withReuseIdentifier: HomeSectionHeaderReusableView.className,
+                                                                         for: indexPath) as! HomeSectionHeaderReusableView
+            header.configure(title: section.title, isCanDelete: true)
+            return header
+        }
+    }
+    
+    private func registerCells() {
+        collectionView.register(HomeCategoryCollectionCell.self, forCellWithReuseIdentifier: HomeCategoryCollectionCell.className)
+        collectionView.register(HomeEpgCollectionCell.self, forCellWithReuseIdentifier: HomeEpgCollectionCell.className)
+        collectionView.register(HomeLiveChannelCollectionCell.self, forCellWithReuseIdentifier: HomeLiveChannelCollectionCell.className)
+        collectionView.register(HomePromotionCollectionCell.self, forCellWithReuseIdentifier: HomePromotionCollectionCell.className)
+        collectionView.register(HomeMovieCollectionCell.self, forCellWithReuseIdentifier: HomeMovieCollectionCell.className)
+        collectionView.register(HomeSectionHeaderReusableView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: HomeSectionHeaderReusableView.className)
+    }
+    
+    private func setupHeader() {
+        let imageView = UIImageView(image: ImageAssets.logo)
+        let imageHeight = imageView.frame.height
+        imageView.contentMode = .center
+        imageView.frame = CGRectMake(0, -imageHeight, self.collectionView.frame.size.width, HomeConstant.Header.imagePadding)
+        collectionView.addSubview(imageView)
+        collectionView.contentInset = UIEdgeInsets(top: imageHeight, left: 0, bottom: 0, right: 0)
     }
     
     // MARK: - Setup Constraints
     private func setupConstraints() {
         setupActivityIndicatorConstraints()
+        setupCollectionViewConstraints()
     }
     
     private func setupActivityIndicatorConstraints() {
@@ -135,5 +190,16 @@ final class HomeViewController: UIViewController, Viewable {
         ])
     }
     
+    private func setupCollectionViewConstraints() {
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        ])
+    }
 }
 

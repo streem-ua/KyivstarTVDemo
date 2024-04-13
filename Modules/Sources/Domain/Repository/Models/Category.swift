@@ -10,8 +10,8 @@ import Data
 
 // MARK: - Category
 public struct Category: Hashable {
-    let id, name: String
-    let image: String
+    public let id, name: String
+    public let image: String
 }
 
 extension CategoryAPI {

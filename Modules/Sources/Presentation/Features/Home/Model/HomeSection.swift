@@ -17,6 +17,21 @@ enum Home {
         case movie
         case liveChannel
         case epg
+        
+        var title: String {
+            switch self {
+            case .category:
+                return "Категорії"
+            case .movie:
+                return "Новинки Київстар ТБ"
+            case .liveChannel:
+                return "Дитячі телеканали"
+            case .epg:
+                return "Пізнавальні"
+            default:
+                return ""
+            }
+        }
     }
     
     enum Item: Hashable {

@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 enum ColorAssets {
-    static let primary = UIColor(named: "dark")
-    static let secondary = UIColor(named: "gray")
+    static let text = UIColor(named: "dark")
+    static let hint = UIColor(named: "gray")
     static let action = UIColor(named: "blue")
     
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8545F19E2BC97CBD00F4B592 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8545F19D2BC97CBD00F4B592 /* LICENSE.txt */; };
+		8545F19F2BC9852E00F4B592 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8545F19C2BC97C6400F4B592 /* Roboto-Regular.ttf */; };
 		859EE12D2BC596AE00583F09 /* Presentation in Frameworks */ = {isa = PBXBuildFile; productRef = 859EE12C2BC596AE00583F09 /* Presentation */; };
 		85A2B7D52BC7E96000BF5DD2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 85A2B7D42BC7E96000BF5DD2 /* Localizable.xcstrings */; };
 		AB5E7741261461B7004AA3B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E7740261461B7004AA3B2 /* AppDelegate.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8545F19C2BC97C6400F4B592 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		8545F19D2BC97CBD00F4B592 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		859EE1262BC559E200583F09 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Modules; sourceTree = "<group>"; };
 		85A2B7D32BC7E92900BF5DD2 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		85A2B7D42BC7E96000BF5DD2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -41,6 +45,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8545F19B2BC97C5A00F4B592 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				8545F19D2BC97CBD00F4B592 /* LICENSE.txt */,
+				8545F19C2BC97C6400F4B592 /* Roboto-Regular.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 		859EE1272BC594D100583F09 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +91,7 @@
 		AB5E775626146274004AA3B2 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				8545F19B2BC97C5A00F4B592 /* Font */,
 				AB5E7740261461B7004AA3B2 /* AppDelegate.swift */,
 				AB5E7742261461B7004AA3B2 /* SceneDelegate.swift */,
 				AB5E7749261461B9004AA3B2 /* Assets.xcassets */,
@@ -152,7 +166,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8545F19E2BC97CBD00F4B592 /* LICENSE.txt in Resources */,
 				AB5E774D261461B9004AA3B2 /* LaunchScreen.storyboard in Resources */,
+				8545F19F2BC9852E00F4B592 /* Roboto-Regular.ttf in Resources */,
 				AB5E774A261461B9004AA3B2 /* Assets.xcassets in Resources */,
 				85A2B7D52BC7E96000BF5DD2 /* Localizable.xcstrings in Resources */,
 			);
@@ -312,12 +328,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SMWT55DAVK;
 				INFOPLIST_FILE = DemoApp/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.vidmind.DemoApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lilcappucc.DemoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -330,12 +347,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SMWT55DAVK;
 				INFOPLIST_FILE = DemoApp/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.vidmind.DemoApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lilcappucc.DemoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

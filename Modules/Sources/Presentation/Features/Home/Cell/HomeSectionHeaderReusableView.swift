@@ -10,29 +10,30 @@ import UIKit
 
 final class HomeSectionHeaderReusableView: UICollectionReusableView {
     
-    var action: (() -> Void)?
+    private var action: (() -> Void)?
     // MARK: - UI Elements
-   private var titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let view = UILabel()
-       view.translatesAutoresizingMaskIntoConstraints = false
-       view.font = UIFont.robotoRegular(size: 16)
-       view.textColor = ColorAssets.text
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.font = UIFont.robotoRegular(size: 16)
+        view.textColor = ColorAssets.text
         return view
     }()
     
     private var actionButton: UIButton = {
-       let view = UIButton()
+        let view = UIButton()
         view.setTitle("Del", for: .normal)
         view.setTitleColor(ColorAssets.action, for: .normal)
         view.titleLabel?.font = UIFont.robotoRegular(size: 16)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+        
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupConstraints()
+        actionButton.addTarget(self, action: #selector(buttonDidTap), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -51,6 +52,10 @@ final class HomeSectionHeaderReusableView: UICollectionReusableView {
             actionButton.trailingAnchor.constraint(equalTo: trailingAnchor),
             actionButton.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
+    }
+    
+    @objc func buttonDidTap() {
+        action?()
     }
     
     // MARK: - Public

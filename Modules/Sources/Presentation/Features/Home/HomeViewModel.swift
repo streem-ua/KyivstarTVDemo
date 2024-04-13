@@ -19,6 +19,7 @@ final class HomeViewModel: ViewModel {
 
     @Published var dataSource: DataSource = []
     unowned var templatesRepository: TemplatesRepository
+    private(set) var sectionCanBeDeletedDict: [Home.Section: Bool] = [:]
     var cancellables = Set<AnyCancellable>()
     let logger = AppLogger.homeFeature
     init(templatesRepository: TemplatesRepository) {
@@ -45,11 +46,14 @@ final class HomeViewModel: ViewModel {
         contentGroupsResponse.forEach { group in
             switch group.type {
             case [.movie], [.series]:
+                sectionCanBeDeletedDict[.movie] = group.canBeDeleted
                 movies.append(contentsOf: group.assets)
             case [.liveChannel]:
                 liveChannels.append(contentsOf: group.assets)
+                sectionCanBeDeletedDict[.liveChannel] = group.canBeDeleted
             case [.epg]:
                 epg.append(contentsOf: group.assets)
+                sectionCanBeDeletedDict[.epg] = group.canBeDeleted
             default:
                 break
             }

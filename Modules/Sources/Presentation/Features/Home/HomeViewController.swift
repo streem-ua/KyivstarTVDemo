@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Core
 
 typealias DataSource = UICollectionViewDiffableDataSource<Home.Section, Home.Item>
 typealias Snapshot = NSDiffableDataSourceSnapshot<Home.Section, Home.Item>
@@ -15,6 +16,7 @@ final class HomeViewController: UIViewController, Viewable {
     
     // MARK: - Properties
     let viewModel: HomeViewModel
+    let logger = AppLogger.homeFeature
     
     // MARK: - Init
     init(viewModel: HomeViewModel) {
@@ -36,7 +38,7 @@ final class HomeViewController: UIViewController, Viewable {
      private var collectionView: UICollectionView!
      private var dataSource: DataSource!
      private let lauotySectionFactory = HomeLayoutSectionFactory()
-        
+    
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,16 +144,23 @@ final class HomeViewController: UIViewController, Viewable {
         }
         
         dataSource.supplementaryViewProvider = { [unowned self] collectionView, kind, indexPath in
-            guard kind == UICollectionView.elementKindSectionHeader else {
-                return nil
-            }
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                          withReuseIdentifier: HomeSectionHeaderReusableView.className,
                                                                          for: indexPath) as! HomeSectionHeaderReusableView
-            header.configure(title: section.title, isCanDelete: true)
+            let canBeDeleted = viewModel.sectionCanBeDeletedDict[section] ?? true
+            header.configure(title: section.title, isCanDelete: canBeDeleted) { [weak self] in
+                self?.deleteSection(section: section)
+            }
             return header
         }
+    }
+    
+    private func deleteSection(section: Home.Section) {
+        logger.info("Deleting setion: \(section.title)")
+        var currentSnapshot = dataSource.snapshot()
+          currentSnapshot.deleteSections([section])
+          dataSource.apply(currentSnapshot, animatingDifferences: true)
     }
     
     private func registerCells() {

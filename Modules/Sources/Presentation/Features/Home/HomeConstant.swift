@@ -26,7 +26,7 @@ enum HomeConstant {
         static let hugePadding: CGFloat = 32
         static let itemHorizontalPadding: CGFloat = 24
         static let promotionSection: CGFloat = 180
-        static let promotionBottomPadding: CGFloat = 14
+        static let promotionBottomPadding: CGFloat = 16
         static let categorySectionWidth: CGFloat = 108
         static let categorySectionHeight: CGFloat = 120
         static let movieSectionHeight: CGFloat = 190

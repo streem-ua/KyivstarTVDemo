@@ -23,11 +23,10 @@ protocol Coordinator: AnyObject {
 }
 
 protocol CoordinatorLifeCycle: AnyObject {
-    func hold(coordinator: Coordinator);
-    func free(coordinator: Coordinator);
+    func finish()
 }
 
 protocol Navigator {
     associatedtype Destination
-    func navigate(to scene: Destination);
+    func navigate(to scene: Destination)
 }

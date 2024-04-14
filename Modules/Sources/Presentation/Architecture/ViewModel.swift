@@ -7,9 +7,9 @@
 
 import Foundation
 
-protocol Viewable: ObservableObject {
+protocol Viewable {
     associatedtype T where T: ViewModel
     var viewModel: T { get }
 }
 
-protocol ViewModel { }
+protocol ViewModel: ObservableObject { }

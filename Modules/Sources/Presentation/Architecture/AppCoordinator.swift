@@ -12,11 +12,12 @@ public final class AppCoordinator: BaseCoordinator {
     
     // MARK: - Properties
     private let window: UIWindow
-    private let diContainer = DIContainerImpl()
+    private let diContainer: DIContainer = DIContainerImpl()
     
     // MARK: - Init
     public init(window: UIWindow) {
         self.window = window
+        super.init()
     }
     
    public override func start() {

@@ -66,6 +66,7 @@ final class HomeViewModel: ViewModel {
         updateDataSource(with: content)
     }
     
+    // MARK: - Private methods
     private func updateDataSource(with content: ContentModel) {
         var dataSource = DataSource()
         dataSource.append(contentsOf: [

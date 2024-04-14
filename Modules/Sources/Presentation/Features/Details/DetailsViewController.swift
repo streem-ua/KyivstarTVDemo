@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import UIKit
 
+// MARK: - DetailsViewController
 final class DetailsViewController: UIViewController {
     
     private var detailView: DetailsView

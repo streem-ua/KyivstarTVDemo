@@ -8,6 +8,7 @@
 import Foundation
 import Data
 
+// MARK: - ContentType
 public enum ContentType: String {
     case movie = "MOVIE"
     case series = "SERIES"

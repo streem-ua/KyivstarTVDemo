@@ -12,6 +12,7 @@ public typealias AppLogger = Logger
 
 extension Logger {
 
+    // MARK: - LogCategory
     enum LogCategory: String {
         case networkService
         case coordinator
@@ -32,6 +33,7 @@ extension Logger {
         return bundleIdentifier
     }
 
+    // MARK: - Loggers
     public static let networkService = Logger.with(category: .networkService)
     public static let coordinator = Logger.with(category: .coordinator)
     public static let sceneDelegate = Logger.with(category: .sceneDelegate)

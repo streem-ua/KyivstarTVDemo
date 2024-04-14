@@ -8,11 +8,15 @@
 import Foundation
 import SwiftUI
 
+// MARK: - RoundedBorderedRectangleModifier
 struct RoundedBorderedRectangleModifier: ViewModifier {
+    
+    // MARK: - Properties
     var foregroundColor: Color
     var backgroundColor: Color
     var borderColor: Color
     
+    // MARK: - Body
     func body(content: Content) -> some View {
         content
             .foregroundColor(foregroundColor)

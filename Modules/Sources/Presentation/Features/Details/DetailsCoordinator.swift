@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import Domain
 
+// MARK: - DetailsCoordinator
 final class DetailsCoordinator: BaseCoordinator {
     
     // MARK: - Properties
@@ -29,6 +30,7 @@ final class DetailsCoordinator: BaseCoordinator {
     }
 }
 
+// MARK: - CoordinatorLifeCycle
 extension DetailsCoordinator: CoordinatorLifeCycle {
     func finish() {
         parentCoordinator?.didFinish(coordinator: self)

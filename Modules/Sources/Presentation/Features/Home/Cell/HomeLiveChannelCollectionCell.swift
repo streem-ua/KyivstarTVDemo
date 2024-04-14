@@ -12,7 +12,7 @@ import Core
 
 final class HomeLiveChannelCollectionCell: CollectionViewCell {
     
-    //MARK: - UI Elements
+    // MARK: - UI Elements
     private let logger = AppLogger.homeFeature
     private var imageView: UIImageView = {
         let view = UIImageView()
@@ -30,7 +30,7 @@ final class HomeLiveChannelCollectionCell: CollectionViewCell {
         return view
     }()
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func prepareForReuse() {
         imageView.kf.cancelDownloadTask()
     }

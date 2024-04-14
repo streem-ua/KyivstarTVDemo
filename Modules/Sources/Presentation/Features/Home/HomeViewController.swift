@@ -17,8 +17,7 @@ final class HomeViewController: UIViewController, Viewable {
     // MARK: - Properties
     let viewModel: HomeViewModel
     let logger = AppLogger.homeFeature
-    
-    var openDetalScreenDidTap: (() -> Void)?
+    weak var navigator: (any Navigator<HomeDestination>)?
     
     // MARK: - Init
     init(viewModel: HomeViewModel) {
@@ -37,15 +36,15 @@ final class HomeViewController: UIViewController, Viewable {
         return activityIndicatorView
     }()
     
-     private var collectionView: UICollectionView!
-     private var dataSource: DataSource!
-     private let lauotySectionFactory = HomeLayoutSectionFactory()
+    private var collectionView: UICollectionView!
+    private var dataSource: DataSource!
+    private let lauotySectionFactory = HomeLayoutSectionFactory()
     
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         setupUI()
+        fetchData()
         
         viewModel.$dataSource
             .removeDuplicates()
@@ -60,15 +59,14 @@ final class HomeViewController: UIViewController, Viewable {
                 self?.dataSource?.apply(snapshot)
             }
             .store(in: &viewModel.cancellables)
-    
-        fetchData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
-        
+    
     // MARK: - Private methods
     private func fetchData() {
         activityIndicatorView.startAnimating()
@@ -86,15 +84,15 @@ final class HomeViewController: UIViewController, Viewable {
     }
     
     private func showErrorAlert() {
-        let alert = UIAlertController(title: "error-alert-title".localized,
-                                      message: "error-alert-text".localized,
+        let alert = UIAlertController(title: "Упс..",
+                                      message: "Не вдалось отримати дані",
                                       preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "error-alert-action".localized,
+        alert.addAction(UIAlertAction(title: "Повторити",
                                       style: .default,
                                       handler: { [weak self] _ in
             self?.fetchData()
         }))
-        alert.addAction(UIAlertAction(title: "error-alert-close".localized, style: .destructive))
+        alert.addAction(UIAlertAction(title: "Закрити", style: .destructive))
         present(alert, animated: true)
     }
     
@@ -109,15 +107,15 @@ final class HomeViewController: UIViewController, Viewable {
     }
     
     private func setupCollectionView() {
-         let layout = UICollectionViewCompositionalLayout { [unowned self] sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
+        let layout = UICollectionViewCompositionalLayout { [unowned self] sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             
-             let section = dataSource.snapshot().sectionIdentifiers[sectionIndex]
-             return self.lauotySectionFactory.build(for: section)
-         }
+            let section = dataSource.snapshot().sectionIdentifiers[sectionIndex]
+            return self.lauotySectionFactory.build(for: section)
+        }
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.delegate = self
-     }
+    }
     
     private func setupDataSource() {
         dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, item in
@@ -161,8 +159,8 @@ final class HomeViewController: UIViewController, Viewable {
     private func deleteSection(section: Home.Section) {
         logger.info("Deleting setion: \(section.title)")
         var currentSnapshot = dataSource.snapshot()
-          currentSnapshot.deleteSections([section])
-          dataSource.apply(currentSnapshot, animatingDifferences: true)
+        currentSnapshot.deleteSections([section])
+        dataSource.apply(currentSnapshot, animatingDifferences: true)
     }
     
     private func registerCells() {
@@ -217,6 +215,6 @@ final class HomeViewController: UIViewController, Viewable {
 extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        openDetalScreenDidTap?()
+        navigator?.navigate(to: .details)
     }
 }

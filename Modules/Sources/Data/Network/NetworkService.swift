@@ -8,20 +8,24 @@
 import Foundation
 import Core
 
+// MARK: - NetworkService
 public protocol NetworkService: Any {
     func load<T: Decodable>(_ request: RequestWithResponse<T>) async throws -> T
 }
 
+// MARK: - NetworkServiceImpl
 public final class NetworkServiceImpl: NetworkService {
     
     // MARK: - Properties
     private let logger = AppLogger.networkService
     private var authentication: Authentication
     
+    // MARK: - Init
     public init(authentication: Authentication) {
         self.authentication = authentication
     }
     
+    // MARK: - Public methods
     public func load<T: Decodable>(_ request: RequestWithResponse<T>) async throws -> T {
         let urlRequest = try await generateURLRequest(from: request)
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
@@ -61,6 +65,7 @@ public final class NetworkServiceImpl: NetworkService {
         }
     }
     
+    // MARK: - Private methods
     private func generateURLRequest(from request: Request) async throws -> URLRequest {
         let url = generateURL(endpoint: request.endpoint)
         var urlRequest = URLRequest(url: url)

@@ -8,7 +8,6 @@
 import Foundation
 import Data
 
-// MARK: - Promotion
 public struct Promotion: Hashable {
     public let id, name: String
     public let imageURL: URL?

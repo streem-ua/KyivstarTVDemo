@@ -22,5 +22,5 @@ extension ClassNameProtocol {
     }
 }
 
-extension NSObject: ClassNameProtocol {}
+extension NSObject: ClassNameProtocol { }
 

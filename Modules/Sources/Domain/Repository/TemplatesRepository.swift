@@ -8,6 +8,7 @@
 import Foundation
 import Data
 
+// MARK: - TemplatesRepository
 public protocol TemplatesRepository: AnyObject {
     func fetchContentGroups() async throws -> [ContentGroups]
     func fetchPromotions() async throws -> [Promotion]
@@ -15,14 +16,18 @@ public protocol TemplatesRepository: AnyObject {
     func fetchAssetDetails() async throws -> AssetDetails
 }
 
+// MARK: - TemplatesRepositoryImpl
 public final class TemplatesRepositoryImpl: TemplatesRepository {
     
+    // MARK: - Properties
     private let networkService: NetworkService
     
+    // MARK: - Init
     public init(networkService: NetworkService) {
         self.networkService = networkService
     }
     
+    // MARK: - Public methods
     public func fetchContentGroups() async throws -> [ContentGroups] {
         let request = RequestWithResponse<[ContentGroupsAPI]>(endpoint: TemplatesEndpoint.getContentGroups)
         let result = try await networkService.load(request)

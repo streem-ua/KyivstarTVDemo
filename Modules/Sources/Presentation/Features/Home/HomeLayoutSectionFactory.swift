@@ -141,7 +141,6 @@ final class HomeLayoutSectionFactory {
         return section
     }
     
-    
     // MARK: - Header
     private func buildHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),

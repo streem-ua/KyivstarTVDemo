@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+// MARK: - Coordinator
 protocol Coordinator: AnyObject {
     
     var parentCoordinator: Coordinator? { get set }
@@ -22,11 +23,13 @@ protocol Coordinator: AnyObject {
     func removeChildCoorninators()
 }
 
+// MARK: - CoordinatorLifeCycle
 protocol CoordinatorLifeCycle: AnyObject {
     func finish()
 }
 
-protocol Navigator {
+// MARK: - Navigator
+protocol Navigator<Destination>: AnyObject {
     associatedtype Destination
     func navigate(to scene: Destination)
 }

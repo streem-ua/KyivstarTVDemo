@@ -28,7 +28,7 @@ final class DIContainerImpl: DIContainer {
         logger.info("DIContainer initialized")
     }
     
-    //MARK: Dependencies
+    // MARK: Dependencies
     private lazy var templateRepository: TemplatesRepository = {
         let authentication = Authentication(barier: API.barrier)
         let networkService = NetworkServiceImpl(authentication: authentication)

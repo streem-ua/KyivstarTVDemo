@@ -10,7 +10,6 @@ import Domain
 
 // MARK: - HomeSection
 enum Home {
-    
     enum Section: CaseIterable {
         case promotion
         case category

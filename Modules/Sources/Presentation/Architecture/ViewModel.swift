@@ -7,9 +7,11 @@
 
 import Foundation
 
+// MARK: - Viewable
 protocol Viewable {
     associatedtype T where T: ViewModel
     var viewModel: T { get }
 }
 
+// MARK: - ViewModel
 protocol ViewModel: ObservableObject { }

@@ -10,6 +10,7 @@ import UIKit
 
 open class CollectionViewCell: UICollectionViewCell {
 
+    // MARK: - Initializers
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setupConstraints()

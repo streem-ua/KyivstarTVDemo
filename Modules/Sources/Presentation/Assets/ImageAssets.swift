@@ -9,6 +9,6 @@ import Foundation
 import UIKit
 
 enum ImageAssets {
-    static let logo = UIImage(named: "logo")
+    static let logo = UIImage(named: "L ogo")
     static let lock = UIImage(named: "lock")
 }

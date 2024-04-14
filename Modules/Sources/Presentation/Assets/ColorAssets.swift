@@ -10,27 +10,20 @@ import UIKit
 
 enum ColorAssets {
     static var text: UIColor {
-        guard let color = UIColor(named: "dark") else {
+        guard let color = UIColor(named: "Dark") else {
             fatalError("Color not found")
         }
         return color
     }
     
     static var hint: UIColor {
-        guard let color = UIColor(named: "gray") else {
+        guard let color = UIColor(named: "Gray") else {
             fatalError("Color not found")
         }
         return color
     }
     
     static var action: UIColor {
-        guard let color = UIColor(named: "blue") else {
-            fatalError("Color not found")
-        }
-        return color
-    }
-    
-    static var actionLight: UIColor {
         guard let color = UIColor(named: "blue") else {
             fatalError("Color not found")
         }

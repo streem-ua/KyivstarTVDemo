@@ -11,6 +11,7 @@ import UIKit
 final class HomeLayoutSectionFactory {
     
     private typealias Constant = HomeConstant.Layout
+    weak var delegate: HomeLayoutSectionFactoryDelegate?
     
     func build(for type: Home.Section) -> NSCollectionLayoutSection {
         switch type {
@@ -46,6 +47,16 @@ final class HomeLayoutSectionFactory {
                                                         leading: 0,
                                                         bottom: Constant.promotionBottomPadding,
                                                         trailing: 0)
+        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(1))
+        let pagingFooterElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize,
+                                                                              elementKind: UICollectionView.elementKindSectionFooter,
+                                                                              alignment: .bottom)
+        pagingFooterElement.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        section.boundarySupplementaryItems += [pagingFooterElement]
+        
+        section.visibleItemsInvalidationHandler = { [weak self] (items, offset, env) -> Void in
+            self?.delegate?.currentPromotionSection(offsetX: offset.x)
+        }
         return section
     }
     
@@ -151,4 +162,9 @@ final class HomeLayoutSectionFactory {
             alignment: .topLeading)
         return header
     }
+}
+
+protocol HomeLayoutSectionFactoryDelegate: AnyObject {
+    
+    func currentPromotionSection(offsetX: CGFloat)
 }

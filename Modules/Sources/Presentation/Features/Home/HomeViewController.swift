@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Core
+import Combine
 
 typealias DataSource = UICollectionViewDiffableDataSource<Home.Section, Home.Item>
 typealias Snapshot = NSDiffableDataSourceSnapshot<Home.Section, Home.Item>
@@ -18,6 +19,7 @@ final class HomeViewController: UIViewController, Viewable {
     let viewModel: HomeViewModel
     let logger = AppLogger.homeFeature
     weak var navigator: (any Navigator<HomeDestination>)?
+    private let pagingInfoSubject = PassthroughSubject<PagingInfo, Never>()
     
     // MARK: - Init
     init(viewModel: HomeViewModel) {
@@ -55,7 +57,6 @@ final class HomeViewController: UIViewController, Viewable {
                     snapshot.appendSections([sectionModel.section])
                     snapshot.appendItems(sectionModel.items, toSection: sectionModel.section)
                 }
-                
                 self?.dataSource?.apply(snapshot)
             }
             .store(in: &viewModel.cancellables)
@@ -107,6 +108,7 @@ final class HomeViewController: UIViewController, Viewable {
     }
     
     private func setupCollectionView() {
+        lauotySectionFactory.delegate = self
         let layout = UICollectionViewCompositionalLayout { [unowned self] sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             
             let section = dataSource.snapshot().sectionIdentifiers[sectionIndex]
@@ -144,16 +146,36 @@ final class HomeViewController: UIViewController, Viewable {
         }
         
         dataSource.supplementaryViewProvider = { [unowned self] collectionView, kind, indexPath in
-            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                         withReuseIdentifier: HomeSectionHeaderReusableView.className,
-                                                                         for: indexPath) as! HomeSectionHeaderReusableView
-            let canBeDeleted = viewModel.sectionCanBeDeletedDict[section] ?? true
-            header.configure(title: section.title, isCanDelete: canBeDeleted) { [weak self] in
-                self?.deleteSection(section: section)
+            if kind == UICollectionView.elementKindSectionHeader {
+                return setupSectionHeader(indexPath: indexPath)
+            } else {
+                return setupSectionFooter(indexPath: indexPath)
             }
-            return header
         }
+    }
+    
+    private func setupSectionHeader(indexPath: IndexPath) -> HomeSectionHeaderReusableView {
+        let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
+        let header: HomeSectionHeaderReusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                                                                    withReuseIdentifier: HomeSectionHeaderReusableView.className,
+                                                                                                    for: indexPath) as! HomeSectionHeaderReusableView
+        let canBeDeleted = viewModel.sectionCanBeDeletedDict[section] ?? true
+        header.configure(title: section.title, isCanDelete: canBeDeleted) { [weak self] in
+            self?.deleteSection(section: section)
+        }
+        return header
+    }
+    
+    private func setupSectionFooter(indexPath: IndexPath) -> HomePromoPagingSectionFooterView {
+        let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter,
+                                                                     withReuseIdentifier: HomePromoPagingSectionFooterView.className,
+                                                                     for: indexPath) as! HomePromoPagingSectionFooterView
+        
+        let itemCount = dataSource.snapshot().numberOfItems(inSection: .promotion)
+        footer.configure(with: itemCount)
+        footer.subscribeTo(subject: pagingInfoSubject, for: indexPath.section)
+        
+        return footer
     }
     
     private func deleteSection(section: Home.Section) {
@@ -172,6 +194,9 @@ final class HomeViewController: UIViewController, Viewable {
         collectionView.register(HomeSectionHeaderReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: HomeSectionHeaderReusableView.className)
+        collectionView.register(HomePromoPagingSectionFooterView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                                withReuseIdentifier: HomePromoPagingSectionFooterView.className)
     }
     
     private func setupHeader() {
@@ -212,9 +237,19 @@ final class HomeViewController: UIViewController, Viewable {
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         navigator?.navigate(to: .details)
     }
+}
+
+// MARK: - HomeLayoutSectionFactoryDelegate
+extension HomeViewController: HomeLayoutSectionFactoryDelegate {
+    func currentPromotionSection(offsetX: CGFloat) {
+        let page = round(offsetX / self.view.bounds.width)
+        self.pagingInfoSubject.send(PagingInfo(currentPage: Int(page)))
+    }
+    
 }

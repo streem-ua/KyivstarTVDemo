@@ -22,6 +22,8 @@ final class HomeViewModel: ViewModel {
     @Published var dataSource: DataSource = []
     var cancellables = Set<AnyCancellable>()
     let logger = AppLogger.homeFeature
+    
+    // MARK: - Init
     init(templatesRepository: TemplatesRepository) {
         self.templatesRepository = templatesRepository
     }

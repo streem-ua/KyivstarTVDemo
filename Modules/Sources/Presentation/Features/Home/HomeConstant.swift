@@ -19,6 +19,10 @@ enum HomeConstant {
         static let imagePadding: CGFloat = 16
     }
     
+    enum Footer {
+        static let bottomPadding: CGFloat = -32
+    }
+    
     enum Layout {
         static let smallTextPadding: CGFloat = 8
         static let sectionVerticalPadding: CGFloat = 16

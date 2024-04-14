@@ -28,8 +28,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let window else {
             fatalError("Could not create window scene")
         }
-        let appCoordinator = AppCoordinator(window: window)
-        appCoordinator.start()
+        self.appCoordinator = AppCoordinator(window: window)
+        appCoordinator?.start()
 //        window?.rootViewController = ViewController()
 //        window?.makeKeyAndVisible()
     }

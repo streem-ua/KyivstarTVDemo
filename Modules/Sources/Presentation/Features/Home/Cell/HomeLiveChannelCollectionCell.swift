@@ -18,7 +18,7 @@ final class HomeLiveChannelCollectionCell: CollectionViewCell {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
-        view.backgroundColor = ColorAssets.action?.withAlphaComponent(0.2)
+        view.backgroundColor = ColorAssets.placeholder
         view.layer.masksToBounds = true
         return view
     }()

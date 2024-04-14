@@ -48,6 +48,18 @@ public struct Asset: Hashable {
     public let purchased: Bool
     public let sortIndex: Int
     public let updatedAt, releaseDate: String
+    
+    public static var mock: Asset = {
+        Asset(id: "1",
+              name: "The Falcon and the Winter Soldier",
+              image: "https://picsum.photos/id/991/400/600",
+              company: "Marvel Studios",
+              progress: 0,
+              purchased: false,
+              sortIndex: 0,
+              updatedAt: "2021-03-19T16:00:00Z",
+              releaseDate: "2021-03-19T16:00:00Z")
+    }()
 }
 
 extension AssetAPI {

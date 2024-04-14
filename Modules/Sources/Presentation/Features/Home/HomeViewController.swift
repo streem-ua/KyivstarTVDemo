@@ -18,6 +18,8 @@ final class HomeViewController: UIViewController, Viewable {
     let viewModel: HomeViewModel
     let logger = AppLogger.homeFeature
     
+    var openDetalScreenDidTap: (() -> Void)?
+    
     // MARK: - Init
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
@@ -64,7 +66,7 @@ final class HomeViewController: UIViewController, Viewable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
         
     // MARK: - Private methods
@@ -113,8 +115,8 @@ final class HomeViewController: UIViewController, Viewable {
              return self.lauotySectionFactory.build(for: section)
          }
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.delegate = self
      }
     
     private func setupDataSource() {
@@ -212,3 +214,9 @@ final class HomeViewController: UIViewController, Viewable {
     }
 }
 
+extension HomeViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        openDetalScreenDidTap?()
+    }
+}

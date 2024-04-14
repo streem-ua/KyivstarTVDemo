@@ -19,7 +19,7 @@ final class HomePromotionCollectionCell: CollectionViewCell {
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = HomeConstant.Cell.cornerRadius
-        view.backgroundColor = ColorAssets.action?.withAlphaComponent(0.2)
+        view.backgroundColor = ColorAssets.placeholder
         return view
     }()
     

@@ -9,22 +9,34 @@ import Foundation
 import UIKit
 import Domain
 
-final class HomeCoordinator: BaseCoordinator {
+public final class HomeCoordinator: BaseCoordinator {
     
     //MARK: - Properties
-    private let window: UIWindow
+    private var window: UIWindow
     private let diContainer: DIContainer
     
-    init(window: UIWindow, diContainer: DIContainer) {
+   public init(window: UIWindow, diContainer: DIContainer) {
         self.window = window
         self.diContainer = diContainer
+        super.init(navigationController: UINavigationController())
     }
     
-    override func start() {
+    public override func start() {
         let templatesRepository = diContainer.resolve(type: TemplatesRepository.self)
         let viewModel = HomeViewModel(templatesRepository: templatesRepository)
         let viewController = HomeViewController(viewModel: viewModel)
-        window.rootViewController = UINavigationController(rootViewController: viewController)
+        navigationController.setViewControllers([viewController], animated: false)
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
+        
+        viewController.openDetalScreenDidTap = { [weak self] in
+            self?.startDetailCoordinator()
+        }
+    }
+    
+    private func startDetailCoordinator() {
+        let coordinator = DetailsCoordinator(diContainer: diContainer, navigationController: navigationController)
+        start(coordinator: coordinator)
     }
 }
+

@@ -17,9 +17,9 @@ final class HomeViewModel: ViewModel {
     // MARK: - Properties
     typealias DataSource = [SectionModel<Home.Section, Home.Item>]
 
-    @Published var dataSource: DataSource = []
-    unowned var templatesRepository: TemplatesRepository
+    private unowned var templatesRepository: TemplatesRepository
     private(set) var sectionCanBeDeletedDict: [Home.Section: Bool] = [:]
+    @Published var dataSource: DataSource = []
     var cancellables = Set<AnyCancellable>()
     let logger = AppLogger.homeFeature
     init(templatesRepository: TemplatesRepository) {

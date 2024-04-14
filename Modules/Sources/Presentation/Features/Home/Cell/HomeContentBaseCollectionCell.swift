@@ -102,8 +102,8 @@ class HomeContentBaseCollectionCell: CollectionViewCell {
     
     // MARK: - Public
     func configure(asset: Asset) {
-        guard let url = URL(string: asset.image) else {
-            logger.error("Could not load image \(asset.image)")
+        guard let url = asset.imageURL else {
+            logger.error("Could not load image")
             return
         }
         imageView.kf.setImage(with: url)

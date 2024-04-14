@@ -10,21 +10,22 @@ import Data
 
 // MARK: - AssetDetails
 public struct AssetDetails: Hashable {
-    let id, name: String
-    let image: String
-    let company: String
-    let similar: [SimilarAsset]
-    let duration, progress: Int
-    let purchased: Bool
-    let updatedAt, description, releaseDate: String
+    public let id, name: String
+    public let imageURL: URL?
+    public let company: String
+    public let similar: [SimilarAsset]
+    public let duration, progress: Int
+    public let purchased: Bool
+    public let updatedAt, description, releaseDate: String
 }
 
 extension AssetDetailsAPI {
     
     func mapToDoamin() -> AssetDetails {
+        let imageURL = URL(string: image)
         return AssetDetails(id: id,
                                   name: name,
-                                  image: image,
+                                  imageURL: imageURL,
                                   company: company,
                                   similar: similar.map { $0.mapToDoamin() },
                                   duration: duration,
@@ -37,20 +38,21 @@ extension AssetDetailsAPI {
 }
 
 // MARK: - AssetDetails
-struct SimilarAsset: Hashable {
-    let id, name: String
-    let image: String
-    let company: String
-    let progress: Int
-    let purchased: Bool
-    let updatedAt, releaseDate: String
+public struct SimilarAsset: Hashable {
+    public let id, name: String
+    public let imageURL: URL?
+    public let company: String
+    public let progress: Int
+    public let purchased: Bool
+    public let updatedAt, releaseDate: String
 }
 
 extension SimilarAssetAPI {
     func mapToDoamin() -> SimilarAsset {
+        let imageURL = URL(string: image)
         return SimilarAsset(id: id,
                                   name: name,
-                                  image: image,
+                                  imageURL: imageURL,
                                   company: company,
                                   progress: progress,
                                   purchased: purchased,

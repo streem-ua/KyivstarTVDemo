@@ -55,9 +55,9 @@ final class HomeCategoryCollectionCell: CollectionViewCell {
     }
     
     // MARK: - Public
-    func configure(imageString: String, title: String) {
-        guard let url = URL(string: imageString) else {
-            logger.error("Could not load image \(imageString)")
+    func configure(imageURL: URL?, title: String) {
+        guard let url = imageURL else {
+            logger.error("Could not load image")
             return
         }
         imageView.kf.setImage(with: url)

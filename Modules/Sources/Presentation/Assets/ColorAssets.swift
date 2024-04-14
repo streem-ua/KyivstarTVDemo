@@ -44,7 +44,7 @@ enum ColorAssets {
         return color
     }
     
-    static var accGray: UIColor {
+    static var accentGray: UIColor {
         guard let color = UIColor(named: "gray-accent") else {
             fatalError("Color not found")
         }

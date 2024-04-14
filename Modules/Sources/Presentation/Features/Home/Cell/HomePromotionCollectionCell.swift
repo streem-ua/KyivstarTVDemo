@@ -40,9 +40,9 @@ final class HomePromotionCollectionCell: CollectionViewCell {
     }
     
     // MARK: - Public
-    func configure(imageString: String) {
-        guard let url = URL(string: imageString) else {
-            logger.error("Could not load image \(imageString)")
+    func configure(imageURL: URL?) {
+        guard let url = imageURL else {
+            logger.error("Could not load image")
             return
         }
         imageView.kf.setImage(with: url)

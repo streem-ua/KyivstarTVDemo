@@ -11,13 +11,14 @@ import Data
 // MARK: - Category
 public struct Category: Hashable {
     public let id, name: String
-    public let image: String
+    public let imageURL: URL?
 }
 
 extension CategoryAPI {
     func mapToDoamin() -> Category {
+        let imageURL = URL(string: image)
         return Category(id: id,
                               name: name,
-                              image: image)
+                              imageURL: imageURL)
     }
 }

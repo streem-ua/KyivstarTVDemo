@@ -124,7 +124,7 @@ final class HomeViewController: UIViewController, Viewable {
             switch item {
             case .category(let category):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCategoryCollectionCell.className, for: indexPath) as! HomeCategoryCollectionCell
-                cell.configure(imageString: category.image, title: category.name)
+                cell.configure(imageURL: category.imageURL, title: category.name)
                 return cell
             case .epg(let epg):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeEpgCollectionCell.className, for: indexPath) as! HomeEpgCollectionCell
@@ -136,7 +136,7 @@ final class HomeViewController: UIViewController, Viewable {
                 return cell
             case .promotion(let promotion):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomePromotionCollectionCell.className, for: indexPath) as! HomePromotionCollectionCell
-                cell.configure(imageString: promotion.image)
+                cell.configure(imageURL: promotion.imageURL)
                 return cell
             case .movie(let movie):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeMovieCollectionCell.className, for: indexPath) as! HomeMovieCollectionCell

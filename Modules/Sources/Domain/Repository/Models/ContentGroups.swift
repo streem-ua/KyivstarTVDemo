@@ -42,7 +42,7 @@ extension ContentGroupsAPI {
 // MARK: - Asset
 public struct Asset: Hashable {
     public let id, name: String
-    public let image: String
+    public let imageURL: URL?
     public let company: String
     public let progress: Int
     public let purchased: Bool
@@ -50,9 +50,10 @@ public struct Asset: Hashable {
     public let updatedAt, releaseDate: String
     
     public static var mock: Asset = {
-        Asset(id: "1",
+        let imageURL = URL(string: "https://picsum.photos/id/991/400/600")
+        return Asset(id: "1",
               name: "The Falcon and the Winter Soldier",
-              image: "https://picsum.photos/id/991/400/600",
+              imageURL: imageURL,
               company: "Marvel Studios",
               progress: 0,
               purchased: false,
@@ -65,9 +66,10 @@ public struct Asset: Hashable {
 extension AssetAPI {
     
     func mapToDoamin() -> Asset {
+        let imageURL = URL(string: image)
         return Asset(id: id,
                            name: name,
-                           image: image,
+                           imageURL: imageURL,
                            company: company,
                            progress: progress,
                            purchased: purchased,

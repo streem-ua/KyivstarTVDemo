@@ -8,33 +8,20 @@
 import Foundation
 import Data
 
-//// MARK: - Promotions
-//public struct Promotions: Hashable {
-//    public let id, name: String
-//    public let promotions: [Promotion]
-//}
-//
-//extension PromotionsAPI {
-//    func mapToDoamin() -> Promotions {
-//        return Promotions(id: id,
-//                                name: name,
-//                                promotions: promotions.map { $0.mapToDoamin() })
-//    }
-//}
-
 // MARK: - Promotion
 public struct Promotion: Hashable {
     public let id, name: String
-    public let image: String
+    public let imageURL: URL?
     public let company, updatedAt, releaseDate: String
 }
 
 extension PromotionAPI {
     
     func mapToDoamin() -> Promotion {
+        let imageURL = URL(string: image)
         return Promotion(id: id,
                                name: name,
-                               image: image,
+                               imageURL: imageURL,
                                company: company,
                                updatedAt: updatedAt,
                                releaseDate: releaseDate)

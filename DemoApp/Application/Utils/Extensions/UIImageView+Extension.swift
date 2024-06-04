@@ -33,6 +33,7 @@ extension UIImageView {
             return
         }
         kf.indicatorType = .activity
-        kf.setImage(with: url, placeholder: UIImage(systemName: "photo"))
+        kf.setImage(with: url) 
+        
     }
 }

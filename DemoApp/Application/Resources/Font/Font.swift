@@ -12,7 +12,7 @@ enum Font: String {
     case light = "SFProText-Light"
     
     func font(size: Double) -> UIFont {
-        return UIFont(name: rawValue, size: size)!// ?? UIFont.systemFont(ofSize: size)
+        return UIFont(name: rawValue, size: size) ?? UIFont.systemFont(ofSize: size)
         
     }
 }

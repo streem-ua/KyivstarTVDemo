@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainCoordinator: Coordinator {
+final class MainCoordinator: Coordinator {
     
     //MARK: - Properties
     
@@ -25,7 +25,7 @@ class MainCoordinator: Coordinator {
     //MARK: - Start
     
     func start(animate: Bool) {
-        let vc = ViewController()
+        let vc = HomeViewController()
         presenter.pushViewController(vc, animated: animate)
     }
 }

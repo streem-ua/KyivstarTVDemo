@@ -28,9 +28,6 @@ class CollectionViewProvider<Section, Item, ViewModel>: NSObject, UICollectionVi
         collectionView?.collectionViewLayout = setupCompositionalLayout()
     }
     
-    func reloadSnapshot() {
-    }
-    
     private func setupCompositionalLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout {[weak self] section, env in
             self?.sectionProvider(section, env)
@@ -62,4 +59,8 @@ class CollectionViewProvider<Section, Item, ViewModel>: NSObject, UICollectionVi
     func configureCell(collectionView: UICollectionView, indexPath: IndexPath, item: Item) -> UICollectionViewCell {
         fatalError("")
     }
+    
+    //MARK: - UICollectionViewDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
 }

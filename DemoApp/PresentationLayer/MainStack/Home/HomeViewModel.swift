@@ -12,6 +12,7 @@ final class HomeViewModel {
     
     //MARK: - Properties
     
+    var showDetail: EmptyClosure?
     @Published private(set) var dataSource = [HomeSectionModel]()
     var cancellables = Set<AnyCancellable>()
     private let networService = NetworkService()
@@ -35,6 +36,10 @@ final class HomeViewModel {
     
     func didTapDell(sectionIndex: Int) {
         dataSource.remove(at: sectionIndex)
+    }
+    
+    func didSelectItem(indexPath: IndexPath) {
+        showDetail?()
     }
     
     //MARK: - Private

@@ -30,7 +30,7 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
     
     //MARK: - Configure
     
-    func updateData(sections: [HomeSectionModel]) {
+    func updateData(sections: [HomeSectionModel] = []) {
         var snapshot = NSDiffableDataSourceSnapshot<Home.Section, Home.Item>()
         for section in sections {
             snapshot.appendSections([section.section])
@@ -48,20 +48,11 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
         collectionView?.register(EpgCollectionCell.self, forCellWithReuseIdentifier: EpgCollectionCell.identifier)
         
         collectionView?.register(SectionFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: SectionFooterView.identifier)
-        collectionView?.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.identifier)
+        collectionView?.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeaderView.identifier)
         
     }
     
-    override func reloadSnapshot() {
-//        var snapshot = NSDiffableDataSourceSnapshot<Home.HomeSection, TestModel>()
-//        
-//        snapshot.appendSections([.movie, .livechannel, .epg])
-//        snapshot.appendItems([TestModel(), TestModel(), TestModel(), TestModel()], toSection: .movie)
-//        snapshot.appendItems([TestModel(), TestModel(), TestModel(), TestModel()], toSection: .livechannel)
-//        snapshot.appendItems([TestModel(), TestModel(), TestModel(), TestModel()], toSection: .epg)
-//        dataSource?.apply(snapshot, animatingDifferences: true)
-    }
-    
+
     override func configureCell(collectionView: UICollectionView, indexPath: IndexPath, item: Home.Item) -> UICollectionViewCell {
         switch item {
         case .movie(let model):
@@ -97,7 +88,7 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
             footer.configure(with: viewModel.promotionsCount())
             return footer
         default:
-            let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: SectionHeader.identifier, for: indexPath) as! SectionHeader
+            let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: SectionHeaderView.identifier, for: indexPath) as! SectionHeaderView
             sectionHeader.configure(type: section)
             sectionHeader.didTapDel = {[weak self] in
                 self?.viewModel.didTapDell(sectionIndex: indexPath.section)
@@ -105,11 +96,7 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
             return sectionHeader
         }
     }
-    
-    deinit {
-        print("sdfsdds")
-    }
-    
+
     override func sectionProvider(_ sectionIndex: Int,_ environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? {
         let section: NSCollectionLayoutSection
         switch viewModel.sectionType(section: sectionIndex) {
@@ -235,5 +222,11 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader,alignment: .top)
         header.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 8)
         return header
+    }
+    
+    //MARK: - UICollectionViewDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelectItem(indexPath: indexPath)
     }
 }

@@ -84,13 +84,3 @@ extension ContentGroups {
         return [movie, livechannel, epg]
     }
 }
-
-struct HomeSectionModel {
-    let section: Home.Section
-    var items: [Home.Item]
-}
-
-//struct ContentGroupAssetTestModel {
-//    let canBeDeleted: Bool = true
-//    let asset: ContentGroupAsset
-//}

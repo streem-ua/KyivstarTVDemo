@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TableHeaderView: UIView {
+final class CollectionHeaderView: UIView {
     
     //MARK: - Properties
     

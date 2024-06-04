@@ -25,7 +25,24 @@ final class MainCoordinator: Coordinator {
     //MARK: - Start
     
     func start(animate: Bool) {
-        let vc = HomeViewController()
-        presenter.pushViewController(vc, animated: animate)
+        showHome(animate: animate)
+    }
+    
+    //MARK: - Controllers
+    
+    private func showHome(animate: Bool) {
+        let vc = ControllersFactory.home {[weak self] destination in
+            switch destination {
+            case .detail:
+                self?.showDetail()
+            }
+        }.makeController()
+        
+        push(controller: vc, animated: animate)
+    }
+    
+    private func showDetail() {
+        let vc = ControllersFactory.detail.makeController()
+        push(controller: vc, animated: true)
     }
 }

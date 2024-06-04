@@ -25,7 +25,10 @@ class ViewController: UIViewController {
         setupViews()
         setupConstraints()
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
     
     private func setupViews() {
         

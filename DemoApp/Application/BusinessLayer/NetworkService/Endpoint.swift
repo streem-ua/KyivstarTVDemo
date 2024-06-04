@@ -52,8 +52,3 @@ extension Endpoint: TargetType {
         ["Authorization":"Bearer \(bearer)"]
     }
 }
-
-
-
-
-

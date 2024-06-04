@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SectionHeader: UICollectionReusableView {
+final class SectionHeaderView: UICollectionReusableView {
     static let identifier = "SectionHeader"
     
     //MARK: - Properties

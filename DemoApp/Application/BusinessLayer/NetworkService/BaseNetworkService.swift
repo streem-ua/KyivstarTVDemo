@@ -11,9 +11,30 @@ class BaseNetworkService<Endpoint: TargetType> {
     
     func fetchData<T:Decodable>(api: Endpoint) async throws -> T {
         let request = try await createRequest(api: api)
-        let (data, urlResponse) = try await URLSession.shared.data(for: request)
-        let result: T = try await decode(data: data)
-        return result
+        
+        do {
+            let (data, urlResponse) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = urlResponse as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 200...299:
+                    break
+                case 401:
+                    throw NetworkError.unauthorized
+                case 402:
+                    throw NetworkError.paymentRequired
+                default:
+                    throw NetworkError.dataLoadingError(httpResponse.statusCode)
+                }
+            }
+            
+            let result: T = try await decode(data: data)
+            return result
+        } catch let error as NetworkError {
+            throw error
+        } catch {
+            throw NetworkError.unknown
+        }
     }
     
     private func createRequest(api: Endpoint) async throws -> URLRequest {

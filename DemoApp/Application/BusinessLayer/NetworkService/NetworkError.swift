@@ -10,4 +10,8 @@ import Foundation
 enum NetworkError: Error {
     case invalidURL
     case jsonDecodeError
+    case unauthorized
+    case paymentRequired
+    case dataLoadingError(_ errorCode: Int)
+    case unknown
 }

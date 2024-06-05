@@ -13,6 +13,7 @@ final class DetailViewModel: ObservableObject {
     private let networkService = NetworkService()
     @Published private(set) var model: AssetDetails?
     @Published private(set) var isPlay = false
+    @Published private(set) var isFavorite = false
     
     //MARK: - Init
     
@@ -34,6 +35,10 @@ final class DetailViewModel: ObservableObject {
     
     func playButtonIconName() -> String {
         isPlay ? "pause.fill" : "play.fill"
+    }
+    
+    func favoriteAction() {
+        isFavorite.toggle()
     }
     
     //MARK: - Private

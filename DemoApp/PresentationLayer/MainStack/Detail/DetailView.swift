@@ -20,12 +20,7 @@ struct DetailView: View {
     var body: some View {
         VStack {
             headerView
-            HStack {
-                playButton
-                Spacer()
-                favoriteButton
-            }
-            .padding()
+            buttonsView
             Divider()
                 .padding(.horizontal)
             title
@@ -54,6 +49,15 @@ struct DetailView: View {
         }
     }
     
+    var buttonsView: some View {
+        HStack {
+            playButton
+            Spacer()
+            favoriteButton
+        }
+        .padding()
+    }
+    
     var title: some View {
         HStack {
             Text(viewModel.model?.description ?? "")
@@ -67,10 +71,11 @@ struct DetailView: View {
     
     var favoriteButton: some View {
         Button {
-            
+            viewModel.favoriteAction()
         } label: {
             HStack {
                 Image(systemName: "star.fill")
+                    .foregroundColor(viewModel.isFavorite ? .yellow : ColorAssets.grayDark.color())
             }
             .modifier(ButtonModifier(bgColor: .grayLight, borderColor: .white))
             .foregroundColor(Color(asset: .grayDark))

@@ -8,7 +8,8 @@
 import UIKit
 
 class BaseNavigationController: UINavigationController {
-    //MARK: - lifecycle
+    
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()

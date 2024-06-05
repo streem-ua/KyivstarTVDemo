@@ -14,8 +14,7 @@ enum Font: String {
     case bold = "SFProText-Bold"
     
     func font(size: Double) -> UIFont {
-        return UIFont(name: rawValue, size: size) ?? UIFont.systemFont(ofSize: size)
-        
+        UIFont(name: rawValue, size: size) ?? UIFont.systemFont(ofSize: size)
     }
 }
 

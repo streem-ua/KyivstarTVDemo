@@ -12,8 +12,14 @@ final class EpgCollectionCell: BaseHomeCollectionCellWithProgress {
     //MARK: - Properties
     
     static let identifier = "EpgCollectionCell"
-    private let titleLabel = UILabel(font: Font.regular.font(size: 12), textAlignment: .left, numberOfLines: 1)
-    private let descriptionLabel = UILabel(font: Font.light.font(size: 11), textColor: .gray, textAlignment: .left)
+    private let titleLabel = UILabel(
+        font: Font.regular.font(size: 12),
+        textAlignment: .left,
+        numberOfLines: 1)
+    private let descriptionLabel = UILabel(
+        font: Font.light.font(size: 11),
+        textColor: .gray,
+        textAlignment: .left)
     
     //MARK: - Init
     

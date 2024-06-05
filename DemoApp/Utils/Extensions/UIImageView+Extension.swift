@@ -25,15 +25,24 @@ extension UIImageView {
         self.isHidden = isHidden
     }
     
-    
     func setImage(urlSting: String) {
         image = nil
         guard let url = URL(string: urlSting) else {
             image = UIImage(systemName: "photo")
             return
         }
-        kf.indicatorType = .activity
-        kf.setImage(with: url) 
         
+        kf.indicatorType = .activity
+        kf.setImage(with: url) {[weak self] result in
+            switch result {
+                
+            case .success(_):
+                break
+            case .failure(let error):
+                if !error.isTaskCancelled {
+                    self?.image = UIImage(systemName: "photo")
+                }
+            }
+        }
     }
 }

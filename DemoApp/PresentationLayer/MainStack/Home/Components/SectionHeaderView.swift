@@ -8,14 +8,23 @@
 import UIKit
 
 final class SectionHeaderView: UICollectionReusableView {
-    static let identifier = "SectionHeader"
     
     //MARK: - Properties
     
+    static let identifier = "SectionHeader"
+    
     var didTapDel: EmptyClosure?
     
-    private let titleLabel = UILabel(font: Font.regular.font(size: 16), textColor: .black, textAlignment: .left, numberOfLines: 1)
-    private lazy var delButton = UIButton(titleFont: Font.regular.font(size: 16), titleTextColor: .systemBlue, target: self, action: #selector(delAction(_ :)))
+    private let titleLabel = UILabel(
+        font: Font.regular.font(size: 16),
+        textColor: .black,
+        textAlignment: .left,
+        numberOfLines: 1)
+    private lazy var delButton = UIButton(
+        title: "Del",
+        titleFont: Font.regular.font(size: 16),
+        titleTextColor: .systemBlue,
+        target: self, action: #selector(delAction(_ :)))
     
     //MARK: - Init
     

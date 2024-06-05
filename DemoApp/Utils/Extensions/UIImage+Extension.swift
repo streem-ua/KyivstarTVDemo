@@ -11,5 +11,4 @@ extension UIImage {
     static func image(_ imageAssets: ImageAssets) -> UIImage {
         imageAssets.image()
     }
-    
 }

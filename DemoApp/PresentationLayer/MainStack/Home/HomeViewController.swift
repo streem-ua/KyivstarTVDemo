@@ -6,20 +6,24 @@
 //
 
 import UIKit
+import Combine
 
-typealias HomeDestination = ((HomeViewController.Destination)->())
+typealias HomeDestination = (HomeViewModel.Destination) -> ()
 
 final class HomeViewController: BaseViewController {
     
     //MARK: - Properties
+    
     var completionHandler: HomeDestination?
+    
     private let viewModel = HomeViewModel()
     private let colltctionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
     private lazy var provider = HomeCollectionViewProvider(collectionView: colltctionView, viewModel: viewModel)
+    private var cancellables = Set<AnyCancellable>()
     
     //MARK: - Init
     
-    init(completionHandler: ((HomeViewController.Destination)->())?) {
+    init(completionHandler: HomeDestination?) {
         super.init(nibName: nil, bundle: nil)
         self.completionHandler = completionHandler
     }
@@ -33,7 +37,7 @@ final class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         attachCollectionView()
-        provider.updateData()
+        provider.updateSnapshot()
         configureViewModel()
     }
     
@@ -44,9 +48,19 @@ final class HomeViewController: BaseViewController {
     // MARK: Configure
     
     private func configureViewModel() {
-        viewModel.showDetail = {[weak self] in
-            self?.completionHandler?(.detail)
-        }
+        viewModel.$destination
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] destination in
+            guard let destination else {return}
+            self?.completionHandler?(destination)
+        }.store(in: &cancellables)
+        
+        viewModel.$networkError
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+            guard let error else { return }
+            self?.showNetworkErrorAlert(title: "Ops", message: error.localizedDescription)
+        }.store(in: &cancellables)
     }
     
     private func attachCollectionView() {
@@ -54,13 +68,5 @@ final class HomeViewController: BaseViewController {
         colltctionView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
-    }
-}
-
-//MARK: - Destination
-
-extension HomeViewController {
-    enum Destination {
-        case detail
     }
 }

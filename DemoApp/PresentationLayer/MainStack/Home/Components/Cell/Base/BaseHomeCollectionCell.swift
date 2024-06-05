@@ -8,9 +8,13 @@
 import UIKit
 
 class BaseHomeCollectionCell: UICollectionViewCell {
+    
     //MARK: - Properties
     
-    let imageView = UIImageView(contentMode: .scaleAspectFill ,cornerRadius: 10, clipsToBounds: true)
+    let imageView = UIImageView(
+        contentMode: .scaleAspectFill,
+        cornerRadius: 10,
+        clipsToBounds: true)
     
     //MARK: - Init
     
@@ -34,4 +38,9 @@ class BaseHomeCollectionCell: UICollectionViewCell {
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
     }
+    
+    override func prepareForReuse() {
+        imageView.kf.cancelDownloadTask()
+    }
+    
 }

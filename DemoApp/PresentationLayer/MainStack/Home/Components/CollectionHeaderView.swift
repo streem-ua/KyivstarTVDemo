@@ -7,9 +7,11 @@
 
 import UIKit
 
-final class CollectionHeaderView: UIView {
+final class CollectionHeaderView: UICollectionReusableView {
     
     //MARK: - Properties
+    
+    static let identifier = "CollectionHeaderView"
     
     private let imageView = UIImageView(image: .image(.logo), contentMode: .scaleAspectFit)
     

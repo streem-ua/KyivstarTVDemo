@@ -8,14 +8,14 @@
 import SwiftUI
 import Kingfisher
 
-typealias DetailDestination = ((DetailView.Destination)->())
+typealias DetailDestination = (DetailView.Destination) -> ()
 
 struct DetailView: View {
     
     //MARK: - Properties
     
     var completionHandler: DetailDestination?
-    @StateObject var viewModel = DetailViewModel()
+    @StateObject var viewModel: DetailViewModel 
     
     var body: some View {
         VStack {
@@ -98,7 +98,7 @@ struct DetailView: View {
 }
 
 #Preview {
-    DetailView()
+    DetailView(viewModel: DetailViewModel(model: DetailModel()))
 }
 
 //MARK: - Destination

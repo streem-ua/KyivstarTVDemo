@@ -8,10 +8,15 @@
 import UIKit
 
 final class CategoryCollectionCell: BaseHomeCollectionCell {
-    static let identifier = "CategoryCollectionCell"
+    
     //MARK: - Properties
     
-    private let titleLabel = UILabel(font: Font.regular.font(size: 12), textAlignment: .center, numberOfLines: 1)
+    static let identifier = "CategoryCollectionCell"
+    
+    private let titleLabel = UILabel(
+        font: Font.regular.font(size: 12),
+        textAlignment: .center,
+        numberOfLines: 1)
     
     //MARK: - Init
     
@@ -26,7 +31,7 @@ final class CategoryCollectionCell: BaseHomeCollectionCell {
     
     //MARK: - Configure
     
-    func configure(model: Categori) {
+    func configure(model: Category) {
         imageView.setImage(urlSting: model.image)
         titleLabel.text = model.name
     }
@@ -46,5 +51,4 @@ final class CategoryCollectionCell: BaseHomeCollectionCell {
             $0.centerX.width.equalToSuperview()
         }
     }
-    
 }

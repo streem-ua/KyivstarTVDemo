@@ -14,8 +14,9 @@ final class AppCoordinator: Coordinator {
     var didStart: EmptyClosure?
     var didFinish: EmptyClosure?
     var presenter: BaseNavigationController
+    var childCoordinators = [Coordinator]()
+    
     private var viewModel: AppCoordinatorViewModel
-    var childCoordinators: [Coordinator] = []
     
     //MARK: - Init
     

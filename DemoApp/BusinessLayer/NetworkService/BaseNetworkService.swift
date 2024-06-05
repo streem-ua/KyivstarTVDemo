@@ -9,7 +9,7 @@ import Foundation
 
 class BaseNetworkService<Endpoint: TargetType> {
     
-    func fetchData<T:Decodable>(api: Endpoint) async throws -> T {
+    func fetchData<T: Decodable>(api: Endpoint) async throws -> T {
         let request = try await createRequest(api: api)
         
         do {
@@ -49,14 +49,13 @@ class BaseNetworkService<Endpoint: TargetType> {
         components.scheme = type.scheme
         components.host = type.host
         components.path = type.path
-        guard let url = components.url else {throw NetworkError.invalidURL}
-        print(url)
+        guard let url = components.url else { throw NetworkError.invalidURL }
         return url
     }
     
     private func decode<T:Decodable>(data: Data) async throws -> T {
         let decoder = JSONDecoder()
-        guard let result = try? decoder.decode(T.self, from: data) else {throw NetworkError.jsonDecodeError}
+        guard let result = try? decoder.decode(T.self, from: data) else { throw NetworkError.jsonDecodeError }
         return result
     }
 }

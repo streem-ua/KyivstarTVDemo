@@ -14,6 +14,10 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
     
     private let pageControll = SectionFooterView()
     private let pagingInfoSubject = PassthroughSubject<PagingInfo, Never>()
+    private var cancellables = Set<AnyCancellable>()
+    
+    var currentDataSources = [HomeSectionModel]()
+    
     
     //MARK: - Init
     
@@ -22,21 +26,36 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
         
         viewModel.$dataSource
             .receive(on: DispatchQueue.main)
-            .sink {[weak self] array in
-                self?.updateData(sections: array)
-                print(array.count)
-            }.store(in: &viewModel.cancellables)
+            .sink { [weak self] dataSources in
+                guard let self  else { return }
+                let diff = diff(old: currentDataSources, new: dataSources)
+                currentDataSources = dataSources
+                applyChanges(diff)
+            }.store(in: &cancellables)
     }
     
     //MARK: - Configure
     
-    func updateData(sections: [HomeSectionModel] = []) {
-        var snapshot = NSDiffableDataSourceSnapshot<Home.Section, Home.Item>()
-        for section in sections {
-            snapshot.appendSections([section.section])
-            snapshot.appendItems(section.items, toSection: section.section)
-            dataSource?.apply(snapshot)
+    private func diff(old: [HomeSectionModel], new: [HomeSectionModel]) -> ([HomeSectionModel], [HomeSectionModel], [HomeSectionModel]) {
+        let removed = old.filter { !new.contains($0) }
+        let added = new.filter { !old.contains($0) }
+        let updated = new.filter { old.contains($0) && old.first { $0 == $0 } != $0 }
+        return (removed, added, updated)
+    }
+    
+    private func applyChanges(_ changes: ([HomeSectionModel], [HomeSectionModel], [HomeSectionModel])) {
+        let (removed, added, _) = changes
+        
+        for item in removed {
+            snapshot.deleteSections([item.section])
         }
+        
+        for item in added {
+            snapshot.appendSections([item.section])
+            snapshot.appendItems(item.items, toSection: item.section)
+        }
+        
+        dataSource?.apply(snapshot)
     }
     
     override func setupCollectionView() {
@@ -48,11 +67,10 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
         collectionView?.register(EpgCollectionCell.self, forCellWithReuseIdentifier: EpgCollectionCell.identifier)
         
         collectionView?.register(SectionFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: SectionFooterView.identifier)
+        collectionView?.register(CollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionHeaderView.identifier)
         collectionView?.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeaderView.identifier)
-        
     }
     
-
     override func configureCell(collectionView: UICollectionView, indexPath: IndexPath, item: Home.Item) -> UICollectionViewCell {
         switch item {
         case .movie(let model):
@@ -78,25 +96,45 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
         }
     }
     
+    //MARK: - Configure SupplementaryView
+    
     override func configureSupplementaryView(_ collectionView: UICollectionView, _ elementKind: String, _ indexPath: IndexPath) -> UICollectionReusableView? {
         let section = viewModel.sectionType(section: indexPath.section)
-        
         switch section {
         case .promotions:
+            return promotionsSupplementaryView(collectionView, elementKind, indexPath)
+        default:
+            return sectionsSupplementaryView(collectionView, elementKind, indexPath)
+        }
+    }
+    
+    private func sectionsSupplementaryView(_ collectionView: UICollectionView, _ elementKind: String, _ indexPath: IndexPath) -> UICollectionReusableView? {
+        let section = viewModel.sectionType(section: indexPath.section)
+        let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: SectionHeaderView.identifier, for: indexPath) as! SectionHeaderView
+        sectionHeader.configure(type: section)
+        sectionHeader.didTapDel = { [weak self] in
+            self?.viewModel.didTapDell(section: section)
+        }
+        return sectionHeader
+    }
+    
+    private func promotionsSupplementaryView(_ collectionView: UICollectionView, _ elementKind: String, _ indexPath: IndexPath) -> UICollectionReusableView? {
+        switch elementKind {
+        case UICollectionView.elementKindSectionHeader:
+            let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: CollectionHeaderView.identifier, for: indexPath) as! CollectionHeaderView
+            return sectionHeader
+        case UICollectionView.elementKindSectionFooter:
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: SectionFooterView.identifier, for: indexPath) as! SectionFooterView
             footer.subscribeTo(subject: pagingInfoSubject, for: indexPath.section)
             footer.configure(with: viewModel.promotionsCount())
             return footer
         default:
-            let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: SectionHeaderView.identifier, for: indexPath) as! SectionHeaderView
-            sectionHeader.configure(type: section)
-            sectionHeader.didTapDel = {[weak self] in
-                self?.viewModel.didTapDell(sectionIndex: indexPath.section)
-            }
-            return sectionHeader
+            return nil
         }
     }
-
+    
+    //MARK: - Configure Sections
+    
     override func sectionProvider(_ sectionIndex: Int,_ environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? {
         let section: NSCollectionLayoutSection
         switch viewModel.sectionType(section: sectionIndex) {
@@ -111,10 +149,9 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
         case .promotions:
             section = configurePromotionsSection()
         }
+        
         return section
     }
-    
-    //MARK: - Configure Sections
     
     private func configureMovieSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
@@ -123,7 +160,6 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .fractionalWidth(0.55))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
         group.contentInsets = .init(top: 4, leading: 4, bottom: 4, trailing: 4)
         
         let section = NSCollectionLayoutSection(group: group)
@@ -184,7 +220,7 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
         
         let header = configureSectionHeader()
         section.boundarySupplementaryItems = [header]
-
+        
         return section
     }
     
@@ -196,16 +232,20 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.58))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.contentInsets = .init(top: 4, leading: 4, bottom: 4, trailing: 4)
+        
         let section = NSCollectionLayoutSection(group: group)
-        
         section.orthogonalScrollingBehavior = .groupPagingCentered
-        let footer = configurePageControll()
-        section.boundarySupplementaryItems = [footer]
         
-        section.visibleItemsInvalidationHandler = {[weak self] (items, offset, env) -> Void in
-            guard let self = self else { return }
-            let page = items.last?.indexPath.row ?? 0
-            self.pagingInfoSubject.send(PagingInfo( currentPage: page))
+        let footer = configurePageControll()
+        let header = configureSectionHeader()
+        section.boundarySupplementaryItems = [header,footer]
+        
+        section.visibleItemsInvalidationHandler = { [weak self] (items, offset, env) -> Void in
+            guard let self = self,
+                  let itemWidth = items.last?.bounds.width 
+            else { return }
+            let page = round(offset.x / (itemWidth + section.interGroupSpacing))
+            pagingInfoSubject.send(PagingInfo( currentPage: Int(page)))
         }
         return section
     }

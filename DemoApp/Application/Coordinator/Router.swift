@@ -8,7 +8,7 @@
 import UIKit
 
 protocol Router {
-    var presenter: BaseNavigationController {get}
+    var presenter: BaseNavigationController { get }
     func present(controller: UINavigationController, animated: Bool)
     func push(controller: UIViewController, animated: Bool)
     func popController(animated: Bool)

@@ -33,7 +33,7 @@ enum Home {
     
     enum Item: Hashable {
         case promotions(Promotion)
-        case categories(Categori)
+        case categories(Category)
         case movie(ContentGroupAsset)
         case livechannel(ContentGroupAsset)
         case epg(ContentGroupAsset)

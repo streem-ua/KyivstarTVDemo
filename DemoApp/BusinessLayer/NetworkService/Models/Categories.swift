@@ -8,10 +8,10 @@
 import Foundation
 
 struct Categories: Decodable {
-    let categories: [Categori]
+    let categories: [Category]
 }
 
-struct Categori: Decodable, Hashable {
+struct Category: Decodable, Hashable {
     let id: String
     let name: String
     let image: String
@@ -19,7 +19,7 @@ struct Categori: Decodable, Hashable {
 
 extension Categories {
     func categoriesItemType() -> HomeSectionModel {
-        let items = categories.map {Home.Item.categories($0)}
+        let items = categories.map { Home.Item.categories($0) }
         return HomeSectionModel(section: .categories, items: items)
     }
 }

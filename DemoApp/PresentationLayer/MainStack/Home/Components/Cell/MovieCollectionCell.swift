@@ -12,7 +12,10 @@ final class MovieCollectionCell: BaseHomeCollectionCellWithProgress {
     //MARK: - Properties
     
     static let identifier = "MovieCollectionCell"
-    private let titleLabel = UILabel(font: Font.regular.font(size: 12), textAlignment: .left, numberOfLines: 2)
+    private let titleLabel = UILabel(
+        font: Font.regular.font(size: 12),
+        textAlignment: .left,
+        numberOfLines: 2)
     
     //MARK: - Init
     

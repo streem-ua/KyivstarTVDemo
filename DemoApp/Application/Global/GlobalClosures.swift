@@ -7,4 +7,4 @@
 
 import Foundation
 
-typealias EmptyClosure = ()->()
+typealias EmptyClosure = () -> ()

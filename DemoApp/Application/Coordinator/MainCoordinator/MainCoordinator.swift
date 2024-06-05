@@ -18,7 +18,9 @@ final class MainCoordinator: Coordinator {
     
     //MARK: - Init
 
-    init(presenter: BaseNavigationController = BaseNavigationController()) {
+    init(
+        presenter: BaseNavigationController = BaseNavigationController()
+    ) {
         self.presenter = presenter
     }
     
@@ -30,24 +32,28 @@ final class MainCoordinator: Coordinator {
     
     //MARK: - Controllers
     
+    /// Currently, the Destination enum has only one case, but it is designed for future expansion.
+    /// This ensures flexibility for the future when more calls from the controller might be added.
+    
     private func showHome(animate: Bool) {
-        let vc = ControllersFactory.home {[weak self] destination in
+        let vc = ControllersFactory.home { [weak self] destination in
             switch destination {
-            case .detail:
-                self?.showDetail()
+            case .detail(let model):
+                self?.showDetail(model: model)
             }
         }.makeController()
         
         push(controller: vc, animated: animate)
     }
     
-    private func showDetail() {
-        let vc = ControllersFactory.detail(completionHandler: {[weak self] destination in
+    private func showDetail(model: DetailModel) {
+        let vc = ControllersFactory.detail(model: model, completionHandler: {[weak self] destination in
             switch destination {
             case .back:
                 self?.popController(animated: true)
             }
         }).makeController()
+        
         push(controller: vc, animated: true)
     }
 }

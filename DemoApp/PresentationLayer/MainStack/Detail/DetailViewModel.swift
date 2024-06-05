@@ -8,16 +8,19 @@
 import Foundation
 
 final class DetailViewModel: ObservableObject {
+    
     //MARK: - Properties
     
     private let networkService = NetworkService()
+    
     @Published private(set) var model: AssetDetails?
     @Published private(set) var isPlay = false
     @Published private(set) var isFavorite = false
     
     //MARK: - Init
     
-    init() {}
+    /// HomeModel is not currently used; it is provided to illustrate how data will be passed to the DetailView.
+    init(model: DetailModel) {}
     
     //MARK: - OpenFunc
     

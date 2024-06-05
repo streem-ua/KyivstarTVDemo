@@ -12,9 +12,10 @@ final class HomeViewModel {
     
     //MARK: - Properties
     
-    var showDetail: EmptyClosure?
     @Published private(set) var dataSource = [HomeSectionModel]()
-    var cancellables = Set<AnyCancellable>()
+    @Published private(set) var destination: HomeViewModel.Destination?
+    @Published private(set) var networkError: NetworkError?
+
     private let networService = NetworkService()
     
     //MARK: - Init
@@ -30,16 +31,17 @@ final class HomeViewModel {
     }
     
     func promotionsCount() -> Int {
-        let count = dataSource.first(where: {$0.section == .promotions})?.items.count
+        let count = dataSource.first(where: { $0.section == .promotions })?.items.count
         return count ?? 0
     }
     
-    func didTapDell(sectionIndex: Int) {
-        dataSource.remove(at: sectionIndex)
+    func didTapDell(section: Home.Section) {        
+        dataSource.removeAll(where: { $0.section == section })
     }
     
     func didSelectItem(indexPath: IndexPath) {
-        showDetail?()
+        let model = DetailModel()
+        destination = .detail(model: model)
     }
     
     //MARK: - Private
@@ -52,7 +54,7 @@ final class HomeViewModel {
                 try await loadCategories()
                 try await loadContentGroups()
             } catch {
-                print(error)
+                networkError = error as? NetworkError
             }
         }
     }
@@ -70,5 +72,13 @@ final class HomeViewModel {
     private func loadPromotions() async throws {
         let categories = try await networService.promotions().sectionModel()
         dataSource.append(categories)
+    }
+}
+
+//MARK: - Destination
+
+extension HomeViewModel {
+    enum Destination {
+        case detail(model: DetailModel)
     }
 }

@@ -8,7 +8,8 @@
 import UIKit
 
 final class AppCoordinatorViewModel {
-    let window: UIWindow? 
+    
+    let window: UIWindow?
     
     init(window: UIWindow?) {
         self.window = window

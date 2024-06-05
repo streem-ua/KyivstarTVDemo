@@ -36,7 +36,7 @@ struct ContentGroupAsset: Decodable, Hashable {
     let releaseDate: String
     
     var floatProgress: CGFloat {
-        CGFloat(progress)/CGFloat(100)
+        CGFloat(progress) / CGFloat(100)
     }
 }
 
@@ -54,13 +54,14 @@ enum ContentGroupType: String, Decodable {
             self = .nonUsed
             return
         }
+        
         self = value
     }
 }
 
 extension ContentGroups {
     func homeSectionModels() -> [HomeSectionModel] {
-        let filteredGroups = compactMap {$0.specificType != .nonUsed ? $0 : nil}
+        let filteredGroups = compactMap { $0.specificType != .nonUsed ? $0 : nil }
         var movie = HomeSectionModel(section: .movie, items: [])
         var epg = HomeSectionModel(section: .epg, items: [])
         var livechannel = HomeSectionModel(section: .livechannel, items: [])
@@ -68,13 +69,13 @@ extension ContentGroups {
         filteredGroups.forEach { group in
             switch group.specificType {
             case .MOVIE, .SERIES:
-                let assets = group.assets.map {Home.Item.movie($0)}
+                let assets = group.assets.map { Home.Item.movie($0) }
                 movie.items += assets
             case .LIVECHANNEL:
-                let assets = group.assets.map {Home.Item.livechannel($0)}
+                let assets = group.assets.map { Home.Item.livechannel($0) }
                 livechannel.items += assets
             case .EPG:
-                let assets = group.assets.map {Home.Item.epg($0)}
+                let assets = group.assets.map { Home.Item.epg($0) }
                 epg.items += assets
             case .nonUsed:
                 break

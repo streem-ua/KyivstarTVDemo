@@ -9,23 +9,36 @@ import UIKit
 
 class CollectionViewProvider<Section, Item, ViewModel>: NSObject, UICollectionViewDelegate where Section : Hashable, Section : Sendable, Item : Hashable, Item : Sendable {
     
+    //MARK: - Properties
+    
     weak var collectionView: UICollectionView?
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>?
     var layout: UICollectionViewCompositionalLayout?
     var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
     let viewModel: ViewModel
     
-    init(collectionView: UICollectionView, viewModel: ViewModel) {
+    //MARK: - Init
+    
+    init(
+        collectionView: UICollectionView,
+        viewModel: ViewModel
+    ) {
         self.viewModel = viewModel
         self.collectionView = collectionView
         super.init()
         setupCollectionView()
     }
     
+    //MARK: - Configure
+    
     func setupCollectionView() {
         collectionView?.delegate = self
         setupDataSource()
         collectionView?.collectionViewLayout = setupCompositionalLayout()
+    }
+    
+    func updateSnapshot() {
+        snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
     }
     
     private func setupCompositionalLayout() -> UICollectionViewCompositionalLayout {

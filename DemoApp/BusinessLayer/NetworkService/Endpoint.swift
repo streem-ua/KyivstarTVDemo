@@ -17,7 +17,7 @@ enum Endpoint {
 fileprivate let bearer = "vf9y8r25pkqkemrk21dyjktqo7rs751apk4yjyrl"
 
 extension Endpoint: TargetType {
-    
+        
     var scheme: String {
         "https"
     }
@@ -37,18 +37,17 @@ extension Endpoint: TargetType {
         case .assetDetails:
             return "/templates/04Pl5AYhO6-n/data/"
         }
-        
     }
     
     var httpMethod: HTTPMethod {
         .GET
     }
     
-    var parameters: [String : Any] {
+    var parameters: [String: Any] {
         [:]
     }
     
-    var headers: [String : String] {
-        ["Authorization":"Bearer \(bearer)"]
+    var headers: [String: String] {
+        ["Authorization": "Bearer \(bearer)"]
     }
 }

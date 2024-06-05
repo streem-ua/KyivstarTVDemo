@@ -10,7 +10,9 @@ import UIKit
 class BaseCollectionCellWithLock: BaseHomeCollectionCell {
     //MARK: - Properties
     
-    let lockImageView = UIImageView(image: .image(.lock), contentMode: .scaleAspectFit)
+    let lockImageView = UIImageView(
+        image: .image(.lock),
+        contentMode: .scaleAspectFit)
     
     //MARK: - Init
     
@@ -33,5 +35,4 @@ class BaseCollectionCellWithLock: BaseHomeCollectionCell {
             $0.leading.equalTo(imageView.snp.centerX).multipliedBy(0.09)
         }
     }
-    
 }

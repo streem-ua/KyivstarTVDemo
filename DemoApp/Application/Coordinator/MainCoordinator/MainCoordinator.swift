@@ -42,7 +42,12 @@ final class MainCoordinator: Coordinator {
     }
     
     private func showDetail() {
-        let vc = ControllersFactory.detail.makeController()
+        let vc = ControllersFactory.detail(completionHandler: {[weak self] destination in
+            switch destination {
+            case .back:
+                self?.popController(animated: true)
+            }
+        }).makeController()
         push(controller: vc, animated: true)
     }
 }

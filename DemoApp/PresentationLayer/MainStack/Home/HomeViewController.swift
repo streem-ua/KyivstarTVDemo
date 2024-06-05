@@ -7,12 +7,12 @@
 
 import UIKit
 
-
+typealias HomeDestination = ((HomeViewController.Destination)->())
 
 final class HomeViewController: BaseViewController {
     
     //MARK: - Properties
-    var completionHandler: ((HomeViewController.Destination)->())?
+    var completionHandler: HomeDestination?
     private let viewModel = HomeViewModel()
     private let colltctionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
     private lazy var provider = HomeCollectionViewProvider(collectionView: colltctionView, viewModel: viewModel)
@@ -46,7 +46,6 @@ final class HomeViewController: BaseViewController {
     private func configureViewModel() {
         viewModel.showDetail = {[weak self] in
             self?.completionHandler?(.detail)
-            print("sfdsfds")
         }
     }
     
@@ -57,6 +56,8 @@ final class HomeViewController: BaseViewController {
         }
     }
 }
+
+//MARK: - Destination
 
 extension HomeViewController {
     enum Destination {

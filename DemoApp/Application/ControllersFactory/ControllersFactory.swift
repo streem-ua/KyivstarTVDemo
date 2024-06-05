@@ -9,15 +9,15 @@ import UIKit
 import SwiftUI
 
 enum ControllersFactory {
-    case home(completionHandler: ((HomeViewController.Destination)->())?)
-    case detail
+    case home(completionHandler: HomeDestination?)
+    case detail(completionHandler: DetailDestination?)
     
     func makeController() -> UIViewController {
         switch self {
         case .home(let completionHandler):
             return HomeViewController(completionHandler: completionHandler)
-        case .detail:
-            return UIHostingController(rootView: DetailView())
+        case .detail(let completionHandler):
+            return UIHostingController(rootView: DetailView(completionHandler: completionHandler))
         }
     }
 }

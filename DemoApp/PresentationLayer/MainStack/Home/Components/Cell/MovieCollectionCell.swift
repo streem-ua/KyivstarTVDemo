@@ -30,11 +30,11 @@ final class MovieCollectionCell: BaseHomeCollectionCellWithProgress {
     
     //MARK: - Configure
     
-    func configure(model: ContentGroupAsset) {
-        imageView.setImage(urlSting: model.image)
-        titleLabel.text = model.name
-        lockImageView.isHidden = model.purchased
-        progressView.progress = model.floatProgress
+    func configure(model: ContentGroupCellModel) {
+        imageView.setImage(urlSting: model.asset.image)
+        titleLabel.text = model.asset.name
+        lockImageView.isHidden = model.asset.purchased
+        progressView.progress = model.asset.floatProgress
     }
     
     override func attachImageView() {

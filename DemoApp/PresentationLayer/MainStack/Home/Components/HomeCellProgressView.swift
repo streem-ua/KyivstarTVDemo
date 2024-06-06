@@ -40,9 +40,13 @@ final class ProgressView: UIView {
         backgroundColor = .color(.grayDark)
     }
     
+    private func configureProgressFrame() {
+        gradientLayer.frame.origin = .zero
+        gradientLayer.frame.size = CGSize(width: width*progress, height: height)
+    }
+    
     private func setupProgress() {
         let gradientColors = [UIColor.color(.blue).cgColor, UIColor.color(.blueLight).cgColor]
-        gradientLayer.frame = bounds
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
         gradientLayer.colors = gradientColors
@@ -52,12 +56,10 @@ final class ProgressView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        gradientLayer.frame = bounds
-        updateProgress()
+        configureProgressFrame()
     }
     
     private func updateProgress() {
-        let progressWidth = width * progress
-        gradientLayer.frame = CGRect(x: 0, y: 0, width: progressWidth, height: height)
+        gradientLayer.frame.size.width = width * progress
     }
 }

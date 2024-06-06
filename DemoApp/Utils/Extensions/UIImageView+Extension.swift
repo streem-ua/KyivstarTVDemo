@@ -26,9 +26,8 @@ extension UIImageView {
     }
     
     func setImage(urlSting: String) {
-        image = nil
         guard let url = URL(string: urlSting) else {
-            image = UIImage(systemName: "photo")
+            image = .image(.placeholder)
             return
         }
         
@@ -40,7 +39,7 @@ extension UIImageView {
                 break
             case .failure(let error):
                 if !error.isTaskCancelled {
-                    self?.image = UIImage(systemName: "photo")
+                    self?.image = .image(.placeholder)
                 }
             }
         }

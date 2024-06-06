@@ -35,8 +35,8 @@ final class HomeViewModel {
         return count ?? 0
     }
     
-    func didTapDell(section: Home.Section) {        
-        dataSource.removeAll(where: { $0.section == section })
+    func didTapDell(section: Int) {
+        dataSource.remove(at: section)
     }
     
     func didSelectItem(indexPath: IndexPath) {

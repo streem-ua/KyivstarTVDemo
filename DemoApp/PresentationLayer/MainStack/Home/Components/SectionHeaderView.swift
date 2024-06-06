@@ -42,6 +42,7 @@ final class SectionHeaderView: UICollectionReusableView {
     
     func configure(type: Home.Section) {
         titleLabel.text = type.title
+        delButton.isHidden = !type.canBeDeleted
     }
     
     private func attachTitleLabel() {

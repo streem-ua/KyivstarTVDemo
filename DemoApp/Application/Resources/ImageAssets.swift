@@ -10,6 +10,7 @@ import UIKit
 enum ImageAssets: String {
     case logo = "logo"
     case lock = "lock"
+    case placeholder = "placeholder"
     
     func image() -> UIImage {
         UIImage(named: rawValue) ?? UIImage()

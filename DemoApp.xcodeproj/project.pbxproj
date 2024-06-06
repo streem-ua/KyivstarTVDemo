@@ -67,6 +67,8 @@
 		294D500F2C0F83AE000E3937 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294D500E2C0F83AE000E3937 /* ButtonModifier.swift */; };
 		294D50112C105638000E3937 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294D50102C105638000E3937 /* DetailViewModel.swift */; };
 		294D50172C10C2C4000E3937 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294D50162C10C2C4000E3937 /* DetailModel.swift */; };
+		29FC0BC32C11983D005A9792 /* ContentGroupCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FC0BC22C11983C005A9792 /* ContentGroupCellModel.swift */; };
+		29FC0BC52C11AC89005A9792 /* DetailConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FC0BC42C11AC89005A9792 /* DetailConstants.swift */; };
 		AB5E7741261461B7004AA3B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E7740261461B7004AA3B2 /* AppDelegate.swift */; };
 		AB5E7743261461B7004AA3B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E7742261461B7004AA3B2 /* SceneDelegate.swift */; };
 		AB5E7745261461B7004AA3B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E7744261461B7004AA3B2 /* ViewController.swift */; };
@@ -132,6 +134,8 @@
 		294D500E2C0F83AE000E3937 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
 		294D50102C105638000E3937 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		294D50162C10C2C4000E3937 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
+		29FC0BC22C11983C005A9792 /* ContentGroupCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentGroupCellModel.swift; sourceTree = "<group>"; };
+		29FC0BC42C11AC89005A9792 /* DetailConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailConstants.swift; sourceTree = "<group>"; };
 		AB5E773D261461B7004AA3B2 /* DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB5E7740261461B7004AA3B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB5E7742261461B7004AA3B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -344,6 +348,7 @@
 				294D4FBF2C0C857A000E3937 /* Home.swift */,
 				294D4FFB2C0F4A60000E3937 /* PagingInfo.swift */,
 				294D4FFF2C0F55C0000E3937 /* HomeSectionModel.swift */,
+				29FC0BC22C11983C005A9792 /* ContentGroupCellModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -380,6 +385,7 @@
 				294D500D2C0F83A2000E3937 /* ViewModifiers */,
 				294D50052C0F5DE7000E3937 /* DetailView.swift */,
 				294D50102C105638000E3937 /* DetailViewModel.swift */,
+				29FC0BC42C11AC89005A9792 /* DetailConstants.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -546,6 +552,7 @@
 				294D4FAE2C0B25AB000E3937 /* HomeViewController.swift in Sources */,
 				294D4FA52C0B1348000E3937 /* NetworkService.swift in Sources */,
 				294D4FB42C0B29B3000E3937 /* UIImage+Extension.swift in Sources */,
+				29FC0BC32C11983D005A9792 /* ContentGroupCellModel.swift in Sources */,
 				294D4F962C09FE0F000E3937 /* BaseViewController.swift in Sources */,
 				AB5E7741261461B7004AA3B2 /* AppDelegate.swift in Sources */,
 				294D4F942C09F45B000E3937 /* MainCoordinator.swift in Sources */,
@@ -573,6 +580,7 @@
 				294D4FF72C0F40E5000E3937 /* UIColor+Extension.swift in Sources */,
 				294D4FF12C0EF4BF000E3937 /* PromotionsCollectionCell.swift in Sources */,
 				294D4F9A2C0A417F000E3937 /* BaseNetworkService.swift in Sources */,
+				29FC0BC52C11AC89005A9792 /* DetailConstants.swift in Sources */,
 				294D4F8D2C09F312000E3937 /* GlobalClosures.swift in Sources */,
 				294D4FB02C0B288B000E3937 /* ImageAssets.swift in Sources */,
 				294D4F9C2C0A4217000E3937 /* Endpoint.swift in Sources */,

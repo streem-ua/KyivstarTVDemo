@@ -62,25 +62,37 @@ enum ContentGroupType: String, Decodable {
 extension ContentGroups {
     func homeSectionModels() -> [HomeSectionModel] {
         let filteredGroups = compactMap { $0.specificType != .nonUsed ? $0 : nil }
-        var movie = HomeSectionModel(section: .movie, items: [])
-        var epg = HomeSectionModel(section: .epg, items: [])
-        var livechannel = HomeSectionModel(section: .livechannel, items: [])
+        
+        
+        var movieItems = [Home.Item]()
+        var epgItems = [Home.Item]()
+        var liveChannelItems = [Home.Item]()
         
         filteredGroups.forEach { group in
             switch group.specificType {
             case .MOVIE, .SERIES:
-                let assets = group.assets.map { Home.Item.movie($0) }
-                movie.items += assets
+                let assets = group.assets.map {
+                    Home.Item.movie(ContentGroupCellModel(asset: $0, canBeDeleted: group.canBeDeleted))
+                }
+                movieItems += assets
             case .LIVECHANNEL:
-                let assets = group.assets.map { Home.Item.livechannel($0) }
-                livechannel.items += assets
+                let assets = group.assets.map { Home.Item.livechannel(ContentGroupCellModel(asset: $0, canBeDeleted: group.canBeDeleted)) }
+                liveChannelItems += assets
             case .EPG:
-                let assets = group.assets.map { Home.Item.epg($0) }
-                epg.items += assets
+                let assets = group.assets.map { Home.Item.epg(ContentGroupCellModel(asset: $0, canBeDeleted: group.canBeDeleted)) }
+                epgItems += assets
             case .nonUsed:
                 break
             }
         }
+        
+        let movieSectionCanBeDeleted = !movieItems.contains(where: { !$0.itemCanBeDeleted })
+        let epgAssetsSectionCanBeDeleted = !epgItems.contains(where: { !$0.itemCanBeDeleted })
+        let liveChannelCanBeDeleted = !liveChannelItems.contains(where: { !$0.itemCanBeDeleted })
+        
+        let movie = HomeSectionModel(section: .movie(canBeDeleted: movieSectionCanBeDeleted), items: movieItems)
+        let epg = HomeSectionModel(section: .epg(canBeDeleted: epgAssetsSectionCanBeDeleted), items: epgItems)
+        let livechannel = HomeSectionModel(section: .livechannel(canBeDeleted: liveChannelCanBeDeleted), items: liveChannelItems)
  
         return [movie, livechannel, epg]
     }

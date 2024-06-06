@@ -37,7 +37,7 @@ final class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         attachCollectionView()
-        provider.updateSnapshot()
+        provider.reloadCollectionView()
         configureViewModel()
     }
     
@@ -59,7 +59,7 @@ final class HomeViewController: BaseViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
             guard let error else { return }
-            self?.showNetworkErrorAlert(title: "Ops", message: error.localizedDescription)
+            self?.showNetworkErrorAlert(title: "Oops", message: error.localizedDescription)
         }.store(in: &cancellables)
     }
     

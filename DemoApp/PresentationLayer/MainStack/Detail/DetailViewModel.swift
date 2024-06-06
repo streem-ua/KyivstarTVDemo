@@ -16,6 +16,8 @@ final class DetailViewModel: ObservableObject {
     @Published private(set) var model: AssetDetails?
     @Published private(set) var isPlay = false
     @Published private(set) var isFavorite = false
+    @Published var isError = false
+    private(set) var networkError: NetworkError?
     
     //MARK: - Init
     
@@ -44,11 +46,20 @@ final class DetailViewModel: ObservableObject {
         isFavorite.toggle()
     }
     
+    func networkErrorDescription() -> String {
+        networkError?.localizedDescription ?? ""
+    }
+    
     //MARK: - Private
     
     @MainActor private func loadData() {
         Task {
-            model = try await networkService.assetDetails()
+            do {
+                model = try await networkService.assetDetails()
+            } catch {
+                networkError = error as? NetworkError
+                isError = true
+            }
         }
     }
 }

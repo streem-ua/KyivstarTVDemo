@@ -35,12 +35,12 @@ final class EpgCollectionCell: BaseHomeCollectionCellWithProgress {
     
     //MARK: - Configure
     
-    func configure(model: ContentGroupAsset) {
-        imageView.setImage(urlSting: model.image)
-        titleLabel.text = model.name
-        lockImageView.isHidden = model.purchased
-        descriptionLabel.text = model.company
-        progressView.progress = model.floatProgress
+    func configure(model: ContentGroupCellModel) {
+        imageView.setImage(urlSting: model.asset.image)
+        titleLabel.text = model.asset.name
+        lockImageView.isHidden = model.asset.purchased
+        descriptionLabel.text = model.asset.company
+        progressView.progress = model.asset.floatProgress
     }
     
     override func attachLockImageView() {

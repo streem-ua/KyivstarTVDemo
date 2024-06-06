@@ -15,7 +15,7 @@ struct DetailView: View {
     //MARK: - Properties
     
     var completionHandler: DetailDestination?
-    @StateObject var viewModel: DetailViewModel 
+    @StateObject var viewModel: DetailViewModel
     
     var body: some View {
         VStack {
@@ -29,6 +29,9 @@ struct DetailView: View {
         .onAppear {
             viewModel.onAppear()
         }
+        .alert(isPresented: $viewModel.isError) {
+            errorAlert
+        }
     }
     
     var headerView: some View {
@@ -36,7 +39,7 @@ struct DetailView: View {
             KFImage(URL(string: viewModel.model?.image ?? ""))
                 .resizable()
                 .scaledToFill()
-                .frame(height: 211)
+                .frame(height: DetailConstant.HeaderView.imageHeight)
                 .clipped()
             Button {
                 completionHandler?(.back)
@@ -88,12 +91,16 @@ struct DetailView: View {
         } label: {
             HStack {
                 Image(systemName: viewModel.playButtonIconName())
-                    .padding(.trailing, 10)
+                    .padding(.trailing, DetailConstant.PlayButton.contentPadding)
                 Text(viewModel.playeButtonTitle())
             }
             .modifier(ButtonModifier(bgColor: .blue, borderColor: .blueLight))
             .foregroundColor(.white)
         }
+    }
+    
+    var errorAlert: Alert {
+        Alert(title: Text("Oops"), message: Text(viewModel.networkErrorDescription()), dismissButton: .default(Text("Ok")))
     }
 }
 

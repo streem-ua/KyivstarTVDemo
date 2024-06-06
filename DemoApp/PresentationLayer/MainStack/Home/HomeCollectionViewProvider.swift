@@ -16,46 +16,37 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
     private let pagingInfoSubject = PassthroughSubject<PagingInfo, Never>()
     private var cancellables = Set<AnyCancellable>()
     
-    var currentDataSources = [HomeSectionModel]()
-    
-    
     //MARK: - Init
     
-    override init(collectionView: UICollectionView, viewModel: HomeViewModel) {
+    override init(
+        collectionView: UICollectionView,
+        viewModel: HomeViewModel
+    ) {
         super.init(collectionView: collectionView, viewModel: viewModel)
-        
-        viewModel.$dataSource
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] dataSources in
-                guard let self  else { return }
-                let diff = diff(old: currentDataSources, new: dataSources)
-                currentDataSources = dataSources
-                applyChanges(diff)
-            }.store(in: &cancellables)
+        configureViewModel()
     }
     
     //MARK: - Configure
     
-    private func diff(old: [HomeSectionModel], new: [HomeSectionModel]) -> ([HomeSectionModel], [HomeSectionModel], [HomeSectionModel]) {
-        let removed = old.filter { !new.contains($0) }
-        let added = new.filter { !old.contains($0) }
-        let updated = new.filter { old.contains($0) && old.first { $0 == $0 } != $0 }
-        return (removed, added, updated)
+    private func configureViewModel() {
+        viewModel.$dataSource
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] dataSources in
+                guard let self  else { return }
+                applyData(dataSources)
+            }.store(in: &cancellables)
     }
     
-    private func applyChanges(_ changes: ([HomeSectionModel], [HomeSectionModel], [HomeSectionModel])) {
-        let (removed, added, _) = changes
-        
-        for item in removed {
-            snapshot.deleteSections([item.section])
+    private func applyData(_ models: [HomeSectionModel]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Home.Section, Home.Item>()
+        for model in models {
+            snapshot.appendSections([model.section])
+            snapshot.appendItems(model.items, toSection: model.section)
         }
         
-        for item in added {
-            snapshot.appendSections([item.section])
-            snapshot.appendItems(item.items, toSection: item.section)
+        dataSource?.apply(snapshot) {[weak self] in
+            self?.reloadCollectionView()
         }
-        
-        dataSource?.apply(snapshot)
     }
     
     override func setupCollectionView() {
@@ -113,8 +104,9 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: SectionHeaderView.identifier, for: indexPath) as! SectionHeaderView
         sectionHeader.configure(type: section)
         sectionHeader.didTapDel = { [weak self] in
-            self?.viewModel.didTapDell(section: section)
+            self?.viewModel.didTapDell(section: indexPath.section)
         }
+        
         return sectionHeader
     }
     
@@ -184,8 +176,8 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
         section.orthogonalScrollingBehavior = .continuous
         
         let header = configureSectionHeader()
-        
         section.boundarySupplementaryItems = [header]
+        
         return section
     }
     
@@ -203,6 +195,7 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
         
         let header = configureSectionHeader()
         section.boundarySupplementaryItems = [header]
+        
         return section
     }
     
@@ -247,6 +240,7 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
             let page = round(offset.x / (itemWidth + section.interGroupSpacing))
             pagingInfoSubject.send(PagingInfo( currentPage: Int(page)))
         }
+        
         return section
     }
     

@@ -27,7 +27,10 @@ enum ControllersFactory {
     
     //MARK: - Alerts
     
-    func networkErrorAlert(completionHandler: EmptyClosure? = nil, title: String, message: String) -> UIAlertController {
+    func networkErrorAlert(
+        completionHandler: EmptyClosure? = nil,
+        title: String, message: String
+    ) -> UIAlertController {
         let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default) { _ in
             completionHandler?()

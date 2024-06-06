@@ -14,7 +14,6 @@ class CollectionViewProvider<Section, Item, ViewModel>: NSObject, UICollectionVi
     weak var collectionView: UICollectionView?
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>?
     var layout: UICollectionViewCompositionalLayout?
-    var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
     let viewModel: ViewModel
     
     //MARK: - Init
@@ -37,8 +36,8 @@ class CollectionViewProvider<Section, Item, ViewModel>: NSObject, UICollectionVi
         collectionView?.collectionViewLayout = setupCompositionalLayout()
     }
     
-    func updateSnapshot() {
-        snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+    func reloadCollectionView() {
+        collectionView?.reloadData()
     }
     
     private func setupCompositionalLayout() -> UICollectionViewCompositionalLayout {

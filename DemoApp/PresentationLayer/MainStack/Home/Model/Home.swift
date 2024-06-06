@@ -8,12 +8,12 @@
 import Foundation
 
 enum Home {
-    enum Section: Int {
+    enum Section: Equatable, Hashable {
         case promotions
         case categories
-        case movie
-        case livechannel
-        case epg
+        case movie(canBeDeleted: Bool)
+        case livechannel(canBeDeleted: Bool)
+        case epg(canBeDeleted: Bool)
         
         var title: String? {
             switch self {
@@ -29,13 +29,38 @@ enum Home {
                 return nil
             }
         }
+        
+        var canBeDeleted: Bool {
+            switch self {
+            case .movie(let canBeDeleted):
+                return canBeDeleted
+            case .livechannel(let canBeDeleted):
+                return canBeDeleted
+            case .epg(let canBeDeleted):
+                return canBeDeleted
+            default:
+                return true
+            }
+        }
     }
     
     enum Item: Hashable {
         case promotions(Promotion)
         case categories(Category)
-        case movie(ContentGroupAsset)
-        case livechannel(ContentGroupAsset)
-        case epg(ContentGroupAsset)
+        case movie(ContentGroupCellModel)
+        case livechannel(ContentGroupCellModel)
+        case epg(ContentGroupCellModel)
+        
+        var itemCanBeDeleted: Bool {
+            switch self {
+            case .promotions:
+                return false
+            case .categories:
+                return true
+            case .movie(let contentGroupCellModel), .livechannel(let contentGroupCellModel), .epg(let contentGroupCellModel):
+                return contentGroupCellModel.canBeDeleted
+           
+            }
+        }
     }
 }

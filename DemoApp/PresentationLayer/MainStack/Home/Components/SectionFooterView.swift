@@ -33,6 +33,8 @@ final class SectionFooterView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Configure
+    
     func subscribeTo(subject: PassthroughSubject<PagingInfo, Never>, for section: Int) {
         pagingInfoToken = subject
             .receive(on: DispatchQueue.main)
@@ -40,8 +42,6 @@ final class SectionFooterView: UICollectionReusableView {
                 self?.pageControl.currentPage = pagingInfo.currentPage
             }
     }
-    
-    //MARK: - Configure
     
     func configure(with numberOfPages: Int) {
         if pageControl.currentPage != numberOfPages {

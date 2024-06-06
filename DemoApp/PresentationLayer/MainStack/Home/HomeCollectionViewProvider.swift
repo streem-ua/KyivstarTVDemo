@@ -44,9 +44,7 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
             snapshot.appendItems(model.items, toSection: model.section)
         }
         
-        dataSource?.apply(snapshot) {[weak self] in
-            self?.reloadCollectionView()
-        }
+        dataSource?.apply(snapshot)
     }
     
     override func setupCollectionView() {
@@ -104,7 +102,7 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: SectionHeaderView.identifier, for: indexPath) as! SectionHeaderView
         sectionHeader.configure(type: section)
         sectionHeader.didTapDel = { [weak self] in
-            self?.viewModel.didTapDell(section: indexPath.section)
+            self?.viewModel.didTapDell(section: section)
         }
         
         return sectionHeader

@@ -31,9 +31,9 @@ final class HomeCollectionViewProvider: CollectionViewProvider<Home.Section, Hom
     private func configureViewModel() {
         viewModel.$dataSource
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] dataSources in
+            .sink { [weak self] dataSource in
                 guard let self  else { return }
-                applyData(dataSources)
+                applyData(dataSource)
             }.store(in: &cancellables)
     }
     

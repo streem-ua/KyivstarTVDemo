@@ -6,17 +6,16 @@
 //
 
 import UIKit
-// 1
+
 class Section: Hashable {
-    var id = UUID()
-    // 2
-    var title: String
-    var imageURLs: [String]
-    var isVisible = true
+    var id: UUID
+    var type: SectionType
+    var cellItems: [CellItem] = []
     
-    init(title: String, imageURLs: [String]) {
-        self.title = title
-        self.imageURLs = imageURLs
+    init(type: SectionType, cellItems: [CellItem]) {
+        self.id = UUID()
+        self.type = type
+        self.cellItems = cellItems
     }
     
     func hash(into hasher: inout Hasher) {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChannelCell: UICollectionViewCell {
+class ChannelCell: ConfigurableCell {
     private lazy var thumbImageView: UIImageView = {
         $0.image = UIImage(named: "channel")
         $0.layer.cornerRadius = 16
@@ -21,8 +21,6 @@ class ChannelCell: UICollectionViewCell {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
-    
-    let label = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +29,11 @@ class ChannelCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("not implemented")
     }
+    
+    override func configure(with model: CellItem) {
+        lockImageView.isHidden = !(model.purchased ?? false)
+    }
+    
     
     private func configure() {
         contentView.addSubview(thumbImageView)

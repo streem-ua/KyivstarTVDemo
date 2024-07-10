@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AssetCell: UICollectionViewCell {
+class AssetCell: ConfigurableCell {
     private lazy var thumbImageView: UIImageView = {
         $0.image = UIImage(named: "rectangle")
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +27,7 @@ class AssetCell: UICollectionViewCell {
         return $0
     }(UIProgressView())
     
-    let label = UILabel()
+    private lazy var titleLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,17 +37,23 @@ class AssetCell: UICollectionViewCell {
         fatalError("not implemented")
     }
     
+    override func configure(with model: CellItem) {
+        titleLabel.text = model.title
+        progressBar.progress = model.progress ?? 0
+        lockImageView.isHidden = !(model.purchased ?? false)
+    }
+    
     private func configure() {
-        contentView.addSubview(label)
+        contentView.addSubview(titleLabel)
         contentView.addSubview(thumbImageView)
         contentView.addSubview(lockImageView)
         thumbImageView.addSubview(progressBar)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.adjustsFontForContentSizeCategory = true
-        label.numberOfLines = 2
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.adjustsFontForContentSizeCategory = true
+        titleLabel.numberOfLines = 2
         thumbImageView.layer.cornerRadius = 16
         thumbImageView.clipsToBounds = true
-        label.text = "not implemented"
+        titleLabel.text = "not implemented"
         NSLayoutConstraint.activate([
             thumbImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             thumbImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -62,13 +68,13 @@ class AssetCell: UICollectionViewCell {
             lockImageView.heightAnchor.constraint(equalTo: lockImageView.widthAnchor),
             lockImageView.widthAnchor.constraint(equalToConstant: 24),
             
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            label.topAnchor.constraint(
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            titleLabel.topAnchor.constraint(
                 equalTo: thumbImageView.bottomAnchor,
                 constant: 8
             ),
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
         ])
     }
 }

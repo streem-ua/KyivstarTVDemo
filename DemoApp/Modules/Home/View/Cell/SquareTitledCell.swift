@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SquareTitledCell: UICollectionViewCell {
+class SquareTitledCell: ConfigurableCell {
     private lazy var thumbImageView: UIImageView = {
         $0.image = UIImage(named: "square")
         $0.translatesAutoresizingMaskIntoConstraints = false

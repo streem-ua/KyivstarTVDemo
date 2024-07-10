@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EPGCell: UICollectionViewCell {
+class EPGCell: ConfigurableCell {
     private lazy var thumbImageView: UIImageView = {
         $0.image = UIImage(named: "panorama")
         $0.translatesAutoresizingMaskIntoConstraints = false

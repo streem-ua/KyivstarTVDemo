@@ -1,5 +1,5 @@
 //
-//  BadgeView.swift
+//  SectionHeaderReusableView.swift
 //  DemoApp
 //
 //  Created by Nik Dub on 10.07.2024.
@@ -7,36 +7,60 @@
 
 import UIKit
 
-class BadgeViewReusableView: UICollectionReusableView {
+class SectionHeaderReusableView: UICollectionReusableView {
     
     static var reuseIdentifier = "badge-test"
-    private var label: UILabel = {
+    private var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
-        label.font = UIFont.preferredFont(forTextStyle: .footnote)
-        label.text = String(Int.random(in: 1...9))
+        label.textColor = .black
+        label.text = "Категорії:"
         return label
     }()
+    
+    private var deleteButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitle("Del", for: .normal)
+        return button
+    }()
+    
+    var onDelete: () -> () = {}
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemRed
-
-        addSubview(label)
+        setupViews()
+        addSubview(titleLabel)
+        addSubview(deleteButton)
 
         NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.centerXAnchor.constraint(equalTo: centerXAnchor)
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            deleteButton.trailingAnchor.constraint(
+                equalTo: trailingAnchor,
+                constant: -10
+            ),
+            deleteButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
         ])
+    }
+    
+    private func setupViews() {
+        deleteButton.addTarget(
+            self,
+            action: #selector(deleteTapped),
+            for: .touchUpInside
+        )
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layer.cornerRadius = bounds.height/2
+    
+    @objc private func deleteTapped() {
+        onDelete()
     }
 }

@@ -9,13 +9,12 @@ import UIKit
 
 class SectionHeaderReusableView: UICollectionReusableView {
     
-    static var reuseIdentifier = "badge-test"
+    static var reuseIdentifier = "section_header"
     
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.text = "Категорії:"
         return label
     }()
     
@@ -47,6 +46,10 @@ class SectionHeaderReusableView: UICollectionReusableView {
             ),
             deleteButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
         ])
+    }
+    
+    func setTitle(text: String) {
+        titleLabel.text = text
     }
     
     func configure(title: String, isDeletable: Bool) {

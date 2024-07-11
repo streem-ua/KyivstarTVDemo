@@ -14,7 +14,7 @@ class SquareTitledCell: ConfigurableCell {
         return $0
     }(UIImageView())
     
-    let label = UILabel()
+    let titleLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,12 +24,17 @@ class SquareTitledCell: ConfigurableCell {
         fatalError("not implemented")
     }
     
+    override func configure(with model: CellItem) {
+        thumbImageView.loadAndSetImage(model.imageURL)
+        titleLabel.text = model.title
+    }
+    
     private func configure() {
-        contentView.addSubview(label)
+        contentView.addSubview(titleLabel)
         contentView.addSubview(thumbImageView)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.adjustsFontForContentSizeCategory = true
-        label.numberOfLines = 2
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.adjustsFontForContentSizeCategory = true
+        titleLabel.numberOfLines = 1
         thumbImageView.layer.cornerRadius = 16
         thumbImageView.clipsToBounds = true
         NSLayoutConstraint.activate([
@@ -45,16 +50,20 @@ class SquareTitledCell: ConfigurableCell {
             thumbImageView.heightAnchor.constraint(
                 equalTo: thumbImageView.widthAnchor
             ),
-            label.leadingAnchor.constraint(
+            titleLabel.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor
             ),
-            label.trailingAnchor.constraint(
+            titleLabel.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor
             ),
-            label.topAnchor.constraint(
+            titleLabel.topAnchor.constraint(
                 equalTo: thumbImageView.bottomAnchor,
-                constant: 10
+                constant: 4
             ),
+            titleLabel.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -4
+            )
         ])
     }
 }

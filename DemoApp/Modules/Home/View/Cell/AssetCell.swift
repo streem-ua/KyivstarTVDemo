@@ -38,6 +38,7 @@ class AssetCell: ConfigurableCell {
     }
     
     override func configure(with model: CellItem) {
+        thumbImageView.loadAndSetImage(model.imageURL)
         titleLabel.text = model.title
         progressBar.progress = model.progress ?? 0
         lockImageView.isHidden = !(model.purchased ?? false)
@@ -50,7 +51,7 @@ class AssetCell: ConfigurableCell {
         thumbImageView.addSubview(progressBar)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.adjustsFontForContentSizeCategory = true
-        titleLabel.numberOfLines = 2
+        titleLabel.numberOfLines = 1
         thumbImageView.layer.cornerRadius = 16
         thumbImageView.clipsToBounds = true
         titleLabel.text = "not implemented"
@@ -72,9 +73,9 @@ class AssetCell: ConfigurableCell {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             titleLabel.topAnchor.constraint(
                 equalTo: thumbImageView.bottomAnchor,
-                constant: 8
+                constant: 4
             ),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
         ])
     }
 }

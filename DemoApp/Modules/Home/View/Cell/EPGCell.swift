@@ -38,6 +38,14 @@ class EPGCell: ConfigurableCell {
         fatalError("not implemented")
     }
     
+    override func configure(with model: CellItem) {
+        thumbImageView.loadAndSetImage(model.imageURL)
+        titleLabel.text = model.title
+        descriptionLabel.text = model.subtitle
+        progressBar.progress = model.progress ?? 0
+        lockImageView.isHidden = !(model.purchased ?? false)
+    }
+    
     private func configure() {
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
@@ -77,10 +85,6 @@ class EPGCell: ConfigurableCell {
                 equalTo: thumbImageView.bottomAnchor,
                 constant: 8
             ),
-//            titleLabel.bottomAnchor.constraint(
-//                equalTo: bottomAnchor,
-//                constant: -8
-//            ),
             descriptionLabel.leadingAnchor.constraint(
                 equalTo: titleLabel.leadingAnchor
             ),

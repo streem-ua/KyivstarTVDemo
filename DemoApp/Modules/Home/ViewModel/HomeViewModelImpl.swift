@@ -32,17 +32,20 @@ class HomeViewModelImpl: HomeViewModel {
         loadData()
     }
     
-    func subscribeOnPublished(block: (AnyPublisher<HomeState, Never>) -> ()) {
+    func subscribeOnPublisher(block: (AnyPublisher<HomeState, Never>) -> ()) {
         block($dataSource.eraseToAnyPublisher())
     }
     
-    func deleteGroup(at index: Int) {
-        
+    func deleteGroup(with id: UUID) {
+//        guard case var .updated(items) = dataSource,
+//              let index = items.firstIndex(where: { $0.id == id }) else {
+//                  return
+//              }
+//        items.remove(at: index)
+//        dataSource = .updated(items)
     }
     
-    func openDetailScreen() {
-        
-    }
+    func openDetailScreen() {}
     
     private func loadData() {
         dataSource = .loading
@@ -97,11 +100,12 @@ class HomeViewModelImpl: HomeViewModel {
             SectionType(rawValue: $0.type.first ?? "") != nil
         }
         var expandedSections: [Section] = [
-            Section(type: .PROMOTIONS, cellItems: promotions.map{ $0.toCellItem() }),
-            Section(type: .CATEGORIES, cellItems: categories.map{ $0.toCellItem() })
+            Section(name: nil, type: .PROMOTIONS, cellItems: promotions.map{ $0.toCellItem() }),
+            Section(name: "Категорії", type: .CATEGORIES, cellItems: categories.map{ $0.toCellItem() })
         ]
         expandedSections += filtered.map {
             Section(
+                name: $0.name,
                 type: SectionType(rawValue: $0.type.first!)!,
                 cellItems: $0.assets.map { $0.toCellItem() }
             )

@@ -10,10 +10,12 @@ import UIKit
 class Section: Hashable {
     var id: UUID
     var type: SectionType
+    var name: String?
     var cellItems: [CellItem] = []
     
-    init(type: SectionType, cellItems: [CellItem]) {
+    init(name: String?, type: SectionType, cellItems: [CellItem]) {
         self.id = UUID()
+        self.name = name
         self.type = type
         self.cellItems = cellItems
     }

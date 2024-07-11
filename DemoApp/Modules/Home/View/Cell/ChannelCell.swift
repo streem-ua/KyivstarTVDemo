@@ -31,6 +31,7 @@ class ChannelCell: ConfigurableCell {
     }
     
     override func configure(with model: CellItem) {
+        thumbImageView.loadAndSetImage(model.imageURL)
         lockImageView.isHidden = !(model.purchased ?? false)
     }
     

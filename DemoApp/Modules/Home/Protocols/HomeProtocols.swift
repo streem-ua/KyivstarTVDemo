@@ -10,9 +10,9 @@ import Combine
 
 protocol HomeViewModel {
     func start()
-    func deleteGroup(at index: Int)
+    func deleteGroup(with id: UUID)
     func openDetailScreen()
-    func subscribeOnPublished(block: (AnyPublisher<HomeState, Never>) -> ())
+    func subscribeOnPublisher(block: (AnyPublisher<HomeState, Never>) -> ())
 }
 
 protocol HomeView {
@@ -66,6 +66,7 @@ extension Asset {
         item.title = self.name
         item.imageURL = self.image
         item.subtitle = self.company
+        item.purchased = self.purchased
         return item
     }
 }

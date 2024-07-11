@@ -23,17 +23,13 @@ class HomeViewController: UIViewController, HomeView {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: SectionHeaderReusableView.reuseIdentifier
         )
+        $0.register(
+            EmptyHeaderReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: EmptyHeaderReusableView.reuseIdentifier
+        )
         return $0
     }(UICollectionView(frame: view.bounds, collectionViewLayout: createLayout()))
-    
-    private lazy var helloLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        
-        return label
-    }()
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView()
@@ -68,7 +64,6 @@ class HomeViewController: UIViewController, HomeView {
         setupConstraints()
         initialSetup()
         configureHierarchy()
-//        configureDataSource()
         applySnapshot(with: [], animatingDifferences: false)
     }
     
@@ -92,11 +87,10 @@ class HomeViewController: UIViewController, HomeView {
     func configureHierarchy() {
            collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
            view.addSubview(collectionView)
-//           collectionView.delegate = self
     }
     
     private func initialSetup() {
-        viewModel.subscribeOnPublished { publisher in
+        viewModel.subscribeOnPublisher { publisher in
             publisher.sink { value in
                 switch value {
                 case .loading:
@@ -119,7 +113,6 @@ class HomeViewController: UIViewController, HomeView {
         logoImageView.image = UIImage(named: "logo_blue")
         headerView.addSubview(logoImageView)
         view.addSubview(headerView)
-        view.addSubview(helloLabel)
         collectionView.addSubview(activityIndicator)
     }
     
@@ -137,10 +130,6 @@ class HomeViewController: UIViewController, HomeView {
             activityIndicator.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor)
         ])
-        
-        helloLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        helloLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30).isActive = true
-        
     }
     
     private func showLoader(_ isShowing: Bool) {
@@ -165,8 +154,6 @@ class HomeViewController: UIViewController, HomeView {
         }
     }
     
-    private func configureCollectionView() {}
-    
     func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout {
             sectionIndex, environment in
@@ -177,12 +164,6 @@ class HomeViewController: UIViewController, HomeView {
                     heightDimension: .fractionalHeight(1.0)
                 )
             )
-//            item.contentInsets = NSDirectionalEdgeInsets(
-//                top: .zero,
-//                leading: 10,
-//                bottom: .zero,
-//                trailing: 10
-//            )
             
             let containerGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
@@ -193,30 +174,7 @@ class HomeViewController: UIViewController, HomeView {
                 count: 1
             )
             
-            var itemSize: NSCollectionLayoutSize!
-            
-            switch sectionIndex {
-            case 0:
-                itemSize = NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(0.275),
-                    heightDimension: .absolute(128)
-                )
-            case 1:
-                itemSize = NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(0.275),
-                    heightDimension: .absolute(196)
-                )
-            case 2:
-                itemSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(104),
-                    heightDimension: .absolute(104)
-                )
-            default:
-                itemSize = NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(0.6),
-                    heightDimension: .absolute(164)
-                )
-            }
+            let itemSize = self.getLayoutSizeForItem(of: self.storedModels[sectionIndex].type)
             
             let superContainerGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: itemSize,
@@ -234,7 +192,7 @@ class HomeViewController: UIViewController, HomeView {
             
             let headerFooterSize = NSCollectionLayoutSize(
               widthDimension: .fractionalWidth(1.0),
-              heightDimension: .estimated(20)
+              heightDimension: .absolute(30)
             )
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
               layoutSize: headerFooterSize,
@@ -275,48 +233,97 @@ class HomeViewController: UIViewController, HomeView {
             cellProvider: { (collectionView: UICollectionView, indexPath: IndexPath, element: CellItem) ->
                 UICollectionViewCell? in
                 
-                switch self.storedModels[indexPath.section].type {
-                case .PROMOTIONS:
-                    let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: PromotionsCell.identifier,
-                        for: indexPath) as? PromotionsCell
-                    return cell
-                case .EPG:
-                    let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: EPGCell.identifier,
-                        for: indexPath) as? EPGCell
-                    return cell
-                case .LIVECHANNEL:
-                    let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: ChannelCell.identifier,
-                        for: indexPath) as? ChannelCell
-                    return cell
-                case .MOVIE, .SERIES:
-                    let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: AssetCell.identifier,
-                        for: indexPath) as? AssetCell
-                    return cell
-                case .CATEGORIES:
-                    let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: SquareTitledCell.identifier,
-                        for: indexPath) as? SquareTitledCell
-                    return cell
+                guard let cell = self.dequeueCell(
+                    of: self.storedModels[indexPath.section].type,
+                    collectionView: collectionView,
+                    indexPath: indexPath
+                ) else {
+                    return UICollectionViewCell()
                 }
+                cell.configure(
+                    with: self.storedModels[indexPath.section].cellItems[indexPath.row]
+                )
+                return cell
             })
-        dataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) in
+        dataSource.supplementaryViewProvider = { [unowned self] (collectionView: UICollectionView, kind: String, indexPath: IndexPath) in
             guard kind == UICollectionView.elementKindSectionHeader else {
-                return UICollectionReusableView()
+                return UICollectionReusableView(frame: .zero)
+            }
+            guard let titleText = storedModels[indexPath.section].name else {
+                let view = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: EmptyHeaderReusableView.reuseIdentifier,
+                    for: indexPath) as? EmptyHeaderReusableView
+                return view!
             }
             let view = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
                 withReuseIdentifier: SectionHeaderReusableView.reuseIdentifier,
                 for: indexPath) as? SectionHeaderReusableView
             view?.onDelete = {[weak self] in
-                self?.viewModel.deleteGroup(at: indexPath.section)
+                guard let section = self?.storedModels[indexPath.section] else {
+                    return
+                }
+                self?.viewModel.deleteGroup(with: section.id)
             }
-            return view ?? UICollectionReusableView()
+            view?.setTitle(text: titleText)
+            return view
         }
         return dataSource
+    }
+    
+    func dequeueCell(
+        of type: SectionType,
+        collectionView: UICollectionView,
+        indexPath: IndexPath
+    ) -> ConfigurableCell? {
+        var reuseIdentifier = ""
+        switch type {
+        case .PROMOTIONS:
+            reuseIdentifier = PromotionsCell.identifier
+        case .EPG:
+            reuseIdentifier = EPGCell.identifier
+        case .LIVECHANNEL:
+            reuseIdentifier = ChannelCell.identifier
+        case .MOVIE, .SERIES:
+            reuseIdentifier = AssetCell.identifier
+        case .CATEGORIES:
+            reuseIdentifier = SquareTitledCell.identifier
+        }
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: reuseIdentifier,
+            for: indexPath) as? ConfigurableCell
+        return cell
+    }
+    
+    private func getLayoutSizeForItem(of type: SectionType) -> NSCollectionLayoutSize {
+        switch type {
+        case .PROMOTIONS:
+            return NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(0.9),
+                heightDimension: .estimated(180)
+            )
+        case .EPG:
+            return NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(0.6),
+                heightDimension: .absolute(164)
+            )
+        case .LIVECHANNEL:
+            return NSCollectionLayoutSize(
+                widthDimension: .absolute(104),
+                heightDimension: .estimated(104)
+            )
+        case .MOVIE, .SERIES:
+            return NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(0.275),
+                heightDimension: .estimated(196)
+            )
+        case .CATEGORIES:
+            return NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(0.275),
+                heightDimension: .estimated(128)
+            )
+        }
     }
 }
 

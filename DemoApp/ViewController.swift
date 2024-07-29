@@ -25,10 +25,13 @@ class ViewController: UIViewController {
         setupViews()
         setupConstraints()
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
     
     private func setupViews() {
-        
+    
         helloLabel.text = "Welcome to KyivstarTV test app!"
         view.addSubview(helloLabel)
    

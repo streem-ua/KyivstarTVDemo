@@ -36,4 +36,8 @@ class AssetDetailsViewModel: ObservableObject {
             }
         }
     }
+    
+    deinit {
+        print("AssetDetailsViewModel deinit")
+    }
 }

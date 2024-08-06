@@ -17,6 +17,8 @@ final class HomeViewModelImp: ObservableObject {
     @Published var showRefreshing: Bool = false
     @Published var errorText: String?
     
+    var onNavigationAction: FlowActionCallback?
+    
     var state: Home.UIState = .loading {
         didSet{
             updateState(state)
@@ -144,6 +146,6 @@ final class HomeViewModelImp: ObservableObject {
     }
     
     func onItemSelected(_ item: Home.Item) {
-        
+        onNavigationAction?(.itemSelected(item))
     }
 }

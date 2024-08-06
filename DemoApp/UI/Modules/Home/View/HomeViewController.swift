@@ -296,8 +296,5 @@ extension HomeViewController: UICollectionViewDelegate {
         let section = viewModel.sectionViewModels[indexPath.section]
         let item = section.items[indexPath.row]
         viewModel.onItemSelected(item)
-        
-        let detailsVC = ModuleFactory.assetDetailsModule()
-        self.navigationController?.pushViewController(detailsVC, animated: true)
     }
 }

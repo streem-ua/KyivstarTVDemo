@@ -39,7 +39,6 @@
 		58A265AC2C5E5C0900DFC9EC /* LiveLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A265AB2C5E5C0900DFC9EC /* LiveLayoutFactory.swift */; };
 		58A265AE2C5E5C8000DFC9EC /* ErpLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A265AD2C5E5C8000DFC9EC /* ErpLayoutFactory.swift */; };
 		58A265B02C5E5D3C00DFC9EC /* ErpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A265AF2C5E5D3C00DFC9EC /* ErpCell.swift */; };
-		58A265B52C60935D00DFC9EC /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A265B42C60935D00DFC9EC /* HudView.swift */; };
 		58A265B92C60C2C100DFC9EC /* AssetDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A265B82C60C2C100DFC9EC /* AssetDetailsView.swift */; };
 		58A265BC2C60C2DD00DFC9EC /* AssetDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A265BB2C60C2DD00DFC9EC /* AssetDetailsViewModel.swift */; };
 		58A265BF2C60C48500DFC9EC /* AssetDetailsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A265BE2C60C48500DFC9EC /* AssetDetailsModels.swift */; };
@@ -48,6 +47,8 @@
 		58A265D02C60DCBD00DFC9EC /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A265CF2C60DCBD00DFC9EC /* ImageCache.swift */; };
 		58A265D22C60DCDD00DFC9EC /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A265D12C60DCDD00DFC9EC /* ImageLoader.swift */; };
 		58A265D42C611B5600DFC9EC /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A265D32C611B5600DFC9EC /* URLImage.swift */; };
+		58A265D72C61EFE800DFC9EC /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A265D62C61EFE800DFC9EC /* AppCoordinator.swift */; };
+		58A265D92C6273CA00DFC9EC /* FlowAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A265D82C6273CA00DFC9EC /* FlowAction.swift */; };
 		58C877902C53F44900A13BFC /* PromotionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C8778F2C53F44900A13BFC /* PromotionsUseCase.swift */; };
 		58C877992C5417FF00A13BFC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C877982C5417FE00A13BFC /* HomeViewModel.swift */; };
 		58C8779B2C5419B300A13BFC /* PromotionsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C8779A2C5419B300A13BFC /* PromotionsClient.swift */; };
@@ -96,7 +97,6 @@
 		58A265AB2C5E5C0900DFC9EC /* LiveLayoutFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveLayoutFactory.swift; sourceTree = "<group>"; };
 		58A265AD2C5E5C8000DFC9EC /* ErpLayoutFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErpLayoutFactory.swift; sourceTree = "<group>"; };
 		58A265AF2C5E5D3C00DFC9EC /* ErpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErpCell.swift; sourceTree = "<group>"; };
-		58A265B42C60935D00DFC9EC /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 		58A265B82C60C2C100DFC9EC /* AssetDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailsView.swift; sourceTree = "<group>"; };
 		58A265BB2C60C2DD00DFC9EC /* AssetDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailsViewModel.swift; sourceTree = "<group>"; };
 		58A265BE2C60C48500DFC9EC /* AssetDetailsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailsModels.swift; sourceTree = "<group>"; };
@@ -105,6 +105,8 @@
 		58A265CF2C60DCBD00DFC9EC /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		58A265D12C60DCDD00DFC9EC /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		58A265D32C611B5600DFC9EC /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
+		58A265D62C61EFE800DFC9EC /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		58A265D82C6273CA00DFC9EC /* FlowAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowAction.swift; sourceTree = "<group>"; };
 		58C8778F2C53F44900A13BFC /* PromotionsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionsUseCase.swift; sourceTree = "<group>"; };
 		58C877982C5417FE00A13BFC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		58C8779A2C5419B300A13BFC /* PromotionsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionsClient.swift; sourceTree = "<group>"; };
@@ -151,7 +153,6 @@
 			children = (
 				58A2659F2C5E442100DFC9EC /* Font+Extension.swift */,
 				58A265A12C5E44E800DFC9EC /* UIColor+Extension.swift */,
-				58A265B42C60935D00DFC9EC /* HudView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -243,9 +244,19 @@
 			name = ImageLoader;
 			sourceTree = "<group>";
 		};
+		58A265D52C61EFCD00DFC9EC /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				58A265D62C61EFE800DFC9EC /* AppCoordinator.swift */,
+				58A265D82C6273CA00DFC9EC /* FlowAction.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
 		58C8778B2C53E04C00A13BFC /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				58A265D52C61EFCD00DFC9EC /* Coordinators */,
 				587C16202C59336100480056 /* Utils */,
 				58A265B62C60C29400DFC9EC /* Modules */,
 			);
@@ -492,6 +503,7 @@
 				587C16042C55359A00480056 /* CategoryUseCase.swift in Sources */,
 				58C8779F2C541E8700A13BFC /* Environment.swift in Sources */,
 				58A265BC2C60C2DD00DFC9EC /* AssetDetailsViewModel.swift in Sources */,
+				58A265D72C61EFE800DFC9EC /* AppCoordinator.swift in Sources */,
 				58A265A82C5E58E200DFC9EC /* MovieCell.swift in Sources */,
 				AB5E7741261461B7004AA3B2 /* AppDelegate.swift in Sources */,
 				58A2657A2C5BDD2D00DFC9EC /* PromotionLayoutFactory.swift in Sources */,
@@ -501,7 +513,6 @@
 				58A265AC2C5E5C0900DFC9EC /* LiveLayoutFactory.swift in Sources */,
 				58A2659E2C5E1C6400DFC9EC /* CategoryCell.swift in Sources */,
 				58A2659C2C5E14D100DFC9EC /* PromotionCell.swift in Sources */,
-				58A265B52C60935D00DFC9EC /* HudView.swift in Sources */,
 				58A265AA2C5E5A7000DFC9EC /* LiveCell.swift in Sources */,
 				AB5E7743261461B7004AA3B2 /* SceneDelegate.swift in Sources */,
 				58A265B02C5E5D3C00DFC9EC /* ErpCell.swift in Sources */,
@@ -511,6 +522,7 @@
 				587C160C2C553A6200480056 /* ContentGroup.swift in Sources */,
 				58C877A32C542ED300A13BFC /* Promotion.swift in Sources */,
 				58C877A12C54241500A13BFC /* PromotionResponseDTO.swift in Sources */,
+				58A265D92C6273CA00DFC9EC /* FlowAction.swift in Sources */,
 				58C8779D2C541E4900A13BFC /* APIEnpointURL.swift in Sources */,
 				58A265A22C5E44E800DFC9EC /* UIColor+Extension.swift in Sources */,
 				58A2657C2C5BDD7100DFC9EC /* CategoryLayoutFactory.swift in Sources */,

@@ -8,20 +8,22 @@
 import UIKit
 
 class ModuleFactory {
-    static func homeModule() -> UIViewController {
-        return HomeViewController(
-            HomeViewModelImp(
-                PromotionsUseCaseImp(
-                    PromotionsClientImp()
-                ),
-                CategoryUseCaseImp(
-                    CategoryClientImp()
-                ),
-                ContentGroupsUseCaseImp(
-                    ContentGroupsClientImp(),
-                    ContentGroupsDAOImp.shared
-                )
+    class func homeModule(_ navigationActionCallback: @escaping FlowActionCallback) -> UIViewController {
+        let vm = HomeViewModelImp(
+            PromotionsUseCaseImp(
+                PromotionsClientImp()
+            ),
+            CategoryUseCaseImp(
+                CategoryClientImp()
+            ),
+            ContentGroupsUseCaseImp(
+                ContentGroupsClientImp(),
+                ContentGroupsDAOImp.shared
             )
+        )
+        vm.onNavigationAction = navigationActionCallback
+        return HomeViewController(
+            vm
         )
     }
     

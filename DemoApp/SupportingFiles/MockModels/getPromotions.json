@@ -1,0 +1,166 @@
+{
+    "id": "63f5367a26b5db31ade910c4",
+    "name": "Promotions",
+    "promotions": [
+        {
+            "id": "63f5367ab543af6337d4ac48",
+            "name": "ex",
+            "image": "https://picsum.photos/id/77/900/500",
+            "company": "Squish",
+            "updatedAt": "2013-04-26T02:47:43.037Z",
+            "releaseDate": "1991-01-06"
+        },
+        {
+            "id": "63f5367aadb4c1845774b966",
+            "name": "magna laboris non",
+            "image": "https://picsum.photos/id/664/900/500",
+            "company": "Combogen",
+            "updatedAt": "2010-11-24T12:42:04.028Z",
+            "releaseDate": "1988-11-07"
+        },
+        {
+            "id": "63f5367a4bd5d778c1eb2d8a",
+            "name": "cupidatat est",
+            "image": "https://picsum.photos/id/982/900/500",
+            "company": "Exoswitch",
+            "updatedAt": "2014-08-16T06:24:00.210Z",
+            "releaseDate": "1988-03-30"
+        },
+        {
+            "id": "63f5367aedf399b27279e62d",
+            "name": "cillum amet proident",
+            "image": "https://picsum.photos/id/182/900/500",
+            "company": "Zizzle",
+            "updatedAt": "2010-10-29T12:33:40.057Z",
+            "releaseDate": "1991-01-29"
+        },
+        {
+            "id": "63f5367a9776e3dd358ab94f",
+            "name": "dolor occaecat",
+            "image": "https://picsum.photos/id/705/900/500",
+            "company": "Corporana",
+            "updatedAt": "2014-01-22T21:00:30.834Z",
+            "releaseDate": "1989-01-10"
+        },
+        {
+            "id": "63f5367ab54e29b97ff8aa32",
+            "name": "eiusmod",
+            "image": "https://picsum.photos/id/471/900/500",
+            "company": "Kineticut",
+            "updatedAt": "2013-06-20T17:11:39.166Z",
+            "releaseDate": "1991-01-22"
+        },
+        {
+            "id": "63f5367a5b74c158945960fe",
+            "name": "incididunt eiusmod",
+            "image": "https://picsum.photos/id/899/900/500",
+            "company": "Aeora",
+            "updatedAt": "2013-10-04T13:40:26.872Z",
+            "releaseDate": "1991-10-24"
+        },
+        {
+            "id": "63f5367a01b8d68829727437",
+            "name": "deserunt labore sit",
+            "image": "https://picsum.photos/id/819/900/500",
+            "company": "Terascape",
+            "updatedAt": "2011-12-21T02:58:35.702Z",
+            "releaseDate": "1992-08-17"
+        },
+        {
+            "id": "63f5367a402c632002d16b53",
+            "name": "et fugiat sit",
+            "image": "https://picsum.photos/id/74/900/500",
+            "company": "Teraprene",
+            "updatedAt": "2012-04-30T11:45:43.428Z",
+            "releaseDate": "1988-04-26"
+        },
+        {
+            "id": "63f5367a4069559f53dab5de",
+            "name": "id ut pariatur",
+            "image": "https://picsum.photos/id/121/900/500",
+            "company": "Cowtown",
+            "updatedAt": "2014-05-01T20:45:39.182Z",
+            "releaseDate": "1993-11-24"
+        },
+        {
+            "id": "63f5367a2f9fd124d6950fe0",
+            "name": "amet elit pariatur",
+            "image": "https://picsum.photos/id/732/900/500",
+            "company": "Scenty",
+            "updatedAt": "2012-03-25T22:31:26.802Z",
+            "releaseDate": "1993-10-26"
+        },
+        {
+            "id": "63f5367a2219be10e928d1d4",
+            "name": "cillum",
+            "image": "https://picsum.photos/id/127/900/500",
+            "company": "Comtest",
+            "updatedAt": "2010-11-17T18:46:32.117Z",
+            "releaseDate": "1994-08-27"
+        },
+        {
+            "id": "63f5367a3da8240568f82aa1",
+            "name": "incididunt culpa dolor",
+            "image": "https://picsum.photos/id/844/900/500",
+            "company": "Straloy",
+            "updatedAt": "2011-02-16T21:18:26.472Z",
+            "releaseDate": "1994-08-20"
+        },
+        {
+            "id": "63f5367a8f0654235744eab0",
+            "name": "commodo",
+            "image": "https://picsum.photos/id/166/900/500",
+            "company": "Cuizine",
+            "updatedAt": "2013-12-29T15:28:58.386Z",
+            "releaseDate": "1994-01-04"
+        },
+        {
+            "id": "63f5367a180015da9c436c6f",
+            "name": "id fugiat eu",
+            "image": "https://picsum.photos/id/25/900/500",
+            "company": "Ecraze",
+            "updatedAt": "2010-01-30T03:36:44.474Z",
+            "releaseDate": "1993-06-02"
+        },
+        {
+            "id": "63f5367acddd13941b09590a",
+            "name": "culpa",
+            "image": "https://picsum.photos/id/499/900/500",
+            "company": "Overfork",
+            "updatedAt": "2013-06-01T23:15:52.069Z",
+            "releaseDate": "1990-03-02"
+        },
+        {
+            "id": "63f5367a572bd96a5012f779",
+            "name": "ullamco id nisi",
+            "image": "https://picsum.photos/id/536/900/500",
+            "company": "Quotezart",
+            "updatedAt": "2011-01-23T00:32:23.204Z",
+            "releaseDate": "1989-06-04"
+        },
+        {
+            "id": "63f5367abaef3783eb0833a5",
+            "name": "veniam quis amet",
+            "image": "https://picsum.photos/id/6/900/500",
+            "company": "Freakin",
+            "updatedAt": "2010-05-10T23:31:48.602Z",
+            "releaseDate": "1992-08-06"
+        },
+        {
+            "id": "63f5367a90b3b53e123071fe",
+            "name": "amet sit",
+            "image": "https://picsum.photos/id/674/900/500",
+            "company": "Hyplex",
+            "updatedAt": "2014-03-05T23:04:38.791Z",
+            "releaseDate": "1991-03-02"
+        },
+        {
+            "id": "63f5367a92e2765fcb2dd8e8",
+            "name": "fugiat",
+            "image": "https://picsum.photos/id/168/900/500",
+            "company": "Obliq",
+            "updatedAt": "2014-10-24T09:25:10.786Z",
+            "releaseDate": "1988-10-31"
+        }
+    ]
+}

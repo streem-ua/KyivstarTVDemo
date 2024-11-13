@@ -1,0 +1,16 @@
+//
+//  AppServiceProvider.swift
+//  DemoApp
+//
+//  Created by Vlad Tkach on 14.08.2024.
+//
+
+import Foundation
+
+protocol AppServiceProvider {
+    var networkProvider: NetworkServiceProviderImpl { get }
+}
+
+final class AppServiceProviderImpl: AppServiceProvider {
+    let networkProvider: NetworkServiceProviderImpl = NetworkServiceProviderImpl.shared
+}
